@@ -1,17 +1,18 @@
 package tadp_pokemon
 
-class Especie {
-  var incrementoEnergiaMaxima: Int = 0
+class EspecieFactory {
   
-  var incrementoPeso: Int = 0
+  var incrementoEnergiaMaxima: Int = _
   
-  var incrementoFuerza: Int = 0
+  var incrementoPeso: Int = _
   
-  var incrementoVelocidad: Int = 0
+  var incrementoFuerza: Int = _
   
-  var resistenciaEvolutiva: Int = 0
+  var incrementoVelocidad: Int = _
   
-  var pesoMaximo: Int = 0
+  var resistenciaEvolutiva: Int = _
+  
+  var pesoMaximo: Int = _
   
   var tipoPrincipal: TipoPokemon = _
   
@@ -48,4 +49,21 @@ class Especie {
   def tipoSecundario(unTipoSecundario: TipoPokemon) {
     tipoSecundario = unTipoSecundario
   }
+  
+  def construirEspecie() : Especie = {
+      
+    def especie = new Especie()
+    
+    especie.incrementoEnergiaMaxima(this.incrementoEnergiaMaxima)
+    especie.incrementoPeso(this.incrementoPeso)
+    especie.incrementoFuerza(this.incrementoFuerza)
+    especie.incrementoVelocidad(this.incrementoVelocidad)
+    especie.pesoMaximo(this.pesoMaximo)
+    especie.tipoPrincipal(this.tipoPrincipal)
+    especie.tipoSecundario(this.tipoSecundario)
+    especie.resistenciaEvolutiva(this.resistenciaEvolutiva)
+    
+    return especie
+  }
+ 
 }
