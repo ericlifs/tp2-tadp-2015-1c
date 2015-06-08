@@ -1,5 +1,5 @@
 package tadp_pokemon
 
-class Tipo {
-  
+class TipoPokemon {
+
 }
