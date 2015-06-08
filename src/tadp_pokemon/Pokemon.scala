@@ -40,6 +40,14 @@ class Pokemon() {
     energiaMaxima = unaEnergiaMaxima
   }
   
+  def aumentarEnergia(unaCantidad: Int){
+    if(energia+unaCantidad>=energiaMaxima){
+      energia = energiaMaxima
+    }else{
+      energia += unaCantidad
+    }
+  }
+  
   def peso(unPeso: Int) {
     peso = unPeso
   }
