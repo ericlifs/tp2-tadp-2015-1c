@@ -90,17 +90,18 @@ class Pokemon() {
   def atacarA(unPokemon: Pokemon, unAtaque: Ataque) {
     var ataquePokemon = ataques.find((ataque: (Ataque, Int, Int)) => ataque._1 == unAtaque)
     
-    //Falta agregar validación que le queden puntos para el ataque
     if (ataquePokemon != None) {
+      var puntosAtaquePokemon = ataquePokemon.get._2
       
-      this.ataques = ataques.map{ ataque => 
-        if (ataque._1 == unAtaque)
-          (ataque._1, ataque._2 - 1, ataque._3)
-        else
-          ataque
+      if (puntosAtaquePokemon > 0) {
+       
+        this.ataques = ataques.map{ ataque => 
+          if (ataque._1 == unAtaque)
+            (ataque._1, ataque._2 - 1, ataque._3)
+          else
+            ataque
+        }
       }
     }
-   
-    
   }
 }
