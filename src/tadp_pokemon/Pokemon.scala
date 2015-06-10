@@ -84,7 +84,7 @@ class Pokemon() {
   }
   
   def fueExpuestoAPiedra(unaPiedraEvolutiva: PiedraEvolutiva) {
-    piedrasExpuesto.::(unaPiedraEvolutiva)
+    piedrasExpuesto = piedrasExpuesto.::(unaPiedraEvolutiva)
   }
   
   def atacarA(unPokemon: Pokemon, unAtaque: Ataque) {
