@@ -1,5 +1,5 @@
 package tadp_pokemon
 
-class Paralizado extends Estado {
+case object Paralizado extends Estado {
   
 }

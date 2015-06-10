@@ -1,5 +1,5 @@
 package tadp_pokemon
 
-class Dormido extends Estado {
+case object Dormido extends Estado {
   
 }

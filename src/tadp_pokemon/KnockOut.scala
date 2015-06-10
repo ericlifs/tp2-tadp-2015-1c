@@ -1,5 +1,5 @@
 package tadp_pokemon
 
-class KnockOut extends Estado {
+case object KnockOut extends Estado {
   
 }

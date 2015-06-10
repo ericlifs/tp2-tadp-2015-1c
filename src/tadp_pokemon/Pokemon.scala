@@ -109,6 +109,9 @@ class Pokemon() {
       var puntosAtaquePokemon = ataquePokemon.get._2
       
       if (puntosAtaquePokemon > 0) {
+        
+        if (unAtaque.efectoColateral != null)
+          unAtaque.efectoColateral.efecto(this)
        
         this.ataques = ataques.map{ ataque => 
           if (ataque._1 == unAtaque)
@@ -118,5 +121,9 @@ class Pokemon() {
         }
       }
     }
+  }
+  
+  def aumentarEnergiaAlMaximo() {
+    energia(energiaMaxima)
   }
 }
