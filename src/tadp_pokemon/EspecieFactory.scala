@@ -18,6 +18,10 @@ class EspecieFactory {
   
   var tipoSecundario: TipoPokemon = null
   
+  var especieCualEvoluciona: Especie = null
+  
+  var criterioEvolucion: CriterioEvolucion = _
+  
   def incrementoEnergiaMaxima(unIncrementoEnergiaMaxima: Int) {
     incrementoEnergiaMaxima = unIncrementoEnergiaMaxima
   }
@@ -50,6 +54,14 @@ class EspecieFactory {
     tipoSecundario = unTipoSecundario
   }
   
+  def especieCualEvoluciona(unaEspeciCualEvoluciona: Especie) {
+    especieCualEvoluciona = unaEspeciCualEvoluciona
+  }
+  
+  def criterioEvolucion(unCriterioEvolucion: CriterioEvolucion) {
+    criterioEvolucion = unCriterioEvolucion
+  }
+  
   def construirEspecie() : Especie = {
       
     def especie = new Especie()
@@ -62,6 +74,8 @@ class EspecieFactory {
     especie.tipoPrincipal(this.tipoPrincipal)
     especie.tipoSecundario(this.tipoSecundario)
     especie.resistenciaEvolutiva(this.resistenciaEvolutiva)
+    especie.especieCualEvoluciona(this.especieCualEvoluciona)
+    especie.criterioEvolucion(this.criterioEvolucion)
     
     return especie
   }

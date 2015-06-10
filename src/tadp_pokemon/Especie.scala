@@ -17,6 +17,10 @@ class Especie {
   
   var tipoSecundario: TipoPokemon = null
   
+  var especieCualEvoluciona: Especie = null
+  
+  var criterioEvolucion: CriterioEvolucion = _
+  
   def incrementoEnergiaMaxima(unIncrementoEnergiaMaxima: Int) {
     incrementoEnergiaMaxima = unIncrementoEnergiaMaxima
   }
@@ -47,5 +51,13 @@ class Especie {
   
   def tipoSecundario(unTipoSecundario: TipoPokemon) {
     tipoSecundario = unTipoSecundario
+  }
+  
+  def especieCualEvoluciona(unaEspeciCualEvoluciona: Especie) {
+    especieCualEvoluciona = unaEspeciCualEvoluciona
+  }
+  
+  def criterioEvolucion(unCriterioEvolucion: CriterioEvolucion) {
+    criterioEvolucion = unCriterioEvolucion
   }
 }

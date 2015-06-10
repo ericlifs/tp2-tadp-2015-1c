@@ -20,6 +20,13 @@ class Pokemon() {
   
   var estado: Estado = _
   
+  //Los ataques van a estar representados por: (Ataque, PuntosDeAtaque, PuntosDeAtaqueMaximosDelPokemon)
+  var ataques: List[(Ataque, Int, Int)] = _
+  
+  var piedrasExpuesto: List[PiedraEvolutiva] = _
+  
+  var especie: Especie = _
+  
   def nivel(unNivel: Int) {
     nivel = unNivel
   }
@@ -41,7 +48,7 @@ class Pokemon() {
   }
   
   def aumentarEnergia(unaCantidad: Int){
-    if(energia+unaCantidad>=energiaMaxima){
+    if(energia + unaCantidad >= energiaMaxima){
       energia = energiaMaxima
     }else{
       energia += unaCantidad
@@ -62,5 +69,38 @@ class Pokemon() {
   
   def estado(unEstado: Estado) {
     estado = unEstado
+  }
+  
+  def especie(unaEspecie: Especie) {
+    especie = unaEspecie
+  }
+  
+  def ataques(unosAtaques: List[Ataque]) {
+    ataques = unosAtaques.filter{ ataque => ataque.tipo == this.especie.tipoPrincipal}.map { ataque => (ataque, ataque.puntosDeAtaqueMaximo, ataque.puntosDeAtaqueMaximo) }
+  }
+  
+  def aprenderAtaque(unAtaque: Ataque) {
+    ataques = ataques.::(unAtaque, unAtaque.puntosDeAtaqueMaximo, unAtaque.puntosDeAtaqueMaximo)
+  }
+  
+  def fueExpuestoAPiedra(unaPiedraEvolutiva: PiedraEvolutiva) {
+    piedrasExpuesto.::(unaPiedraEvolutiva)
+  }
+  
+  def atacarA(unPokemon: Pokemon, unAtaque: Ataque) {
+    var ataquePokemon = ataques.find((ataque: (Ataque, Int, Int)) => ataque._1 == unAtaque)
+    
+    //Falta agregar validación que le queden puntos para el ataque
+    if (ataquePokemon != None) {
+      
+      this.ataques = ataques.map{ ataque => 
+        if (ataque._1 == unAtaque)
+          (ataque._1, ataque._2 - 1, ataque._3)
+        else
+          ataque
+      }
+    }
+   
+    
   }
 }

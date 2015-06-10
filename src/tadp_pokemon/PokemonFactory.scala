@@ -23,6 +23,10 @@ class PokemonFactory {
   
   var estado: Estado = _
   
+  var ataques: List[Ataque] = _
+  
+  var especie: Especie = _
+  
   def nivel(unNivel: Int) {
     if (1 <= unNivel && unNivel <= 100) {
       nivel = unNivel
@@ -79,6 +83,15 @@ class PokemonFactory {
     estado = unEstado
   }
   
+  def especie(unaEspecie: Especie) {
+    especie = unaEspecie
+  }
+  
+  def agregarAtaque(unAtaque: Ataque) {
+    if (unAtaque.tipo == this.especie.tipoPrincipal || (this.especie.tipoSecundario != null && unAtaque.tipo == this.especie.tipoSecundario))
+      ataques = ataques.::(unAtaque)
+  }
+  
   def construirPokemon() : Pokemon = {
       
     def pokemon = new Pokemon()
@@ -92,6 +105,8 @@ class PokemonFactory {
     pokemon.fuerza(this.fuerza)
     pokemon.velocidad(this.velocidad)
     pokemon.estado(this.estado)
+    pokemon.ataques(this.ataques)
+    pokemon.especie(this.especie)
     
     return pokemon
   }
