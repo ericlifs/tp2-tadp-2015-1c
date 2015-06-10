@@ -80,7 +80,8 @@ class Pokemon() {
   }
   
   def aprenderAtaque(unAtaque: Ataque) {
-    ataques = ataques.::(unAtaque, unAtaque.puntosDeAtaqueMaximo, unAtaque.puntosDeAtaqueMaximo)
+    if (unAtaque.tipo == especie.tipoPrincipal || (especie.tipoSecundario != null && unAtaque.tipo == especie.tipoSecundario))
+      ataques = ataques.::(unAtaque, unAtaque.puntosDeAtaqueMaximo, unAtaque.puntosDeAtaqueMaximo)
   }
   
   def fueExpuestoAPiedra(unaPiedraEvolutiva: PiedraEvolutiva) {
@@ -88,12 +89,10 @@ class Pokemon() {
   }
   
   def aumentarExperiencia(unaCantidadExperiencia: Int) {
-    if (unaCantidadExperiencia >= especie.resistenciaEvolutiva) {
-      experiencia(experiencia + unaCantidadExperiencia)
+    if (unaCantidadExperiencia >= especie.resistenciaEvolutiva)
       subirNivel()
-    } else {
-      energia += unaCantidadExperiencia
-    }
+    
+    experiencia(experiencia + unaCantidadExperiencia)
   }
   
   def subirNivel() {
