@@ -48,9 +48,9 @@ class Pokemon() {
   }
   
   def aumentarEnergia(unaCantidad: Int){
-    if(energia + unaCantidad >= energiaMaxima){
+    if (energia + unaCantidad >= energiaMaxima){
       energia = energiaMaxima
-    }else{
+    } else {
       energia += unaCantidad
     }
   }
@@ -85,6 +85,22 @@ class Pokemon() {
   
   def fueExpuestoAPiedra(unaPiedraEvolutiva: PiedraEvolutiva) {
     piedrasExpuesto = piedrasExpuesto.::(unaPiedraEvolutiva)
+  }
+  
+  def aumentarExperiencia(unaCantidadExperiencia: Int) {
+    if (unaCantidadExperiencia >= especie.resistenciaEvolutiva) {
+      experiencia(experiencia + unaCantidadExperiencia)
+      subirNivel()
+    } else {
+      energia += unaCantidadExperiencia
+    }
+  }
+  
+  def subirNivel() {
+    energiaMaxima(energiaMaxima + especie.incrementoEnergiaMaxima)
+    peso(peso + especie.incrementoPeso)
+    fuerza(fuerza + especie.incrementoFuerza)
+    velocidad(velocidad + especie.incrementoVelocidad)
   }
   
   def atacarA(unPokemon: Pokemon, unAtaque: Ataque) {
