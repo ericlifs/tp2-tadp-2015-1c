@@ -126,4 +126,11 @@ class Pokemon() {
   def aumentarEnergiaAlMaximo() {
     energia(energiaMaxima)
   }
+  
+  def evolucionar() {
+    if (especie.criterioEvolucion.criterio(this)) {
+      especie(especie.especieCualEvoluciona)
+      subirNivel()
+    }
+  }
 }
