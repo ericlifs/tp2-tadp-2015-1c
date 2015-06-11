@@ -2,7 +2,7 @@ package tadp_pokemon
 
 class Pokemon() {
   
-  var nivel: Int = 0
+  var nivel: Int = 1
   
   var experiencia: Int = 0
   
@@ -89,10 +89,21 @@ class Pokemon() {
   }
   
   def aumentarExperiencia(unaCantidadExperiencia: Int) {
-    if (unaCantidadExperiencia >= especie.resistenciaEvolutiva)
+    if (puedeSubirNivelSegunExperiencia(unaCantidadExperiencia)) {
       subirNivel()
+      evolucionar()
+    }
     
     experiencia(experiencia + unaCantidadExperiencia)
+  }
+  
+  def puedeSubirNivelSegunExperiencia(unaCantidadExperiencia: Int): Boolean = {
+    unaCantidadExperiencia >= experienciaNecesariaProximoNivel(nivel)
+  }
+  
+  def experienciaNecesariaProximoNivel(unNivel: Int): Int = { 
+     if (nivel >= 1) (2 * experienciaNecesariaProximoNivel(nivel - 1)) + especie.resistenciaEvolutiva
+     else 0
   }
   
   def subirNivel() {
