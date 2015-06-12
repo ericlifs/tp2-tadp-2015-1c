@@ -16,9 +16,9 @@ class EspecieFactory {
   
   var tipoPrincipal: TipoPokemon = _
   
-  var tipoSecundario: TipoPokemon = null
+  var tipoSecundario: TipoPokemon = _
   
-  var especieCualEvoluciona: Especie = null
+  var especieCualEvoluciona: Especie = _
   
   var criterioEvolucion: CriterioEvolucion = _
   

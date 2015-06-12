@@ -1,23 +1,23 @@
 package tadp_pokemon
 
 class Especie {
-  var incrementoEnergiaMaxima: Int = 0
+  var incrementoEnergiaMaxima: Int = _
   
-  var incrementoPeso: Int = 0
+  var incrementoPeso: Int = _
   
-  var incrementoFuerza: Int = 0
+  var incrementoFuerza: Int = _
   
-  var incrementoVelocidad: Int = 0
+  var incrementoVelocidad: Int = _
   
-  var resistenciaEvolutiva: Int = 0
+  var resistenciaEvolutiva: Int = _
   
-  var pesoMaximo: Int = 0
+  var pesoMaximo: Int = _
   
   var tipoPrincipal: TipoPokemon = _
   
-  var tipoSecundario: TipoPokemon = null
+  var tipoSecundario: TipoPokemon = _
   
-  var especieCualEvoluciona: Especie = null
+  var especieCualEvoluciona: Especie = _
   
   var criterioEvolucion: CriterioEvolucion = _
   

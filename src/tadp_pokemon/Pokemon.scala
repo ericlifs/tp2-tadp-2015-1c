@@ -2,28 +2,28 @@ package tadp_pokemon
 
 class Pokemon() {
   
-  var nivel: Int = 1
+  var nivel: Int = _
   
-  var experiencia: Int = 0
+  var experiencia: Int = _
   
-  var genero: String = ""
+  var genero: Genero = _
   
-  var energia: Int = 0
+  var energia: Int = _
   
-  var energiaMaxima: Int = 0
+  var energiaMaxima: Int = _
   
-  var peso: Int = 0
+  var peso: Int = _
   
-  var fuerza: Int = 0
+  var fuerza: Int = _
   
-  var velocidad: Int = 0
+  var velocidad: Int = _
   
   var estado: Estado = _
   
   //Los ataques van a estar representados por: (Ataque, PuntosDeAtaque, PuntosDeAtaqueMaximosDelPokemon)
-  var ataques: List[(Ataque, Int, Int)] = _
+  var ataques: List[(Ataque, Int, Int)] = List()
   
-  var piedrasExpuesto: List[PiedraEvolutiva] = _
+  var piedrasExpuesto: List[PiedraEvolutiva] = List()
   
   var especie: Especie = _
   
@@ -35,7 +35,7 @@ class Pokemon() {
     experiencia = unaExperiencia
   }
   
-  def genero(unGenero: String) {
+  def genero(unGenero: Genero) {
     genero = unGenero
   }
   
@@ -141,7 +141,6 @@ class Pokemon() {
   def evolucionar() {
     if (especie.criterioEvolucion.criterio(this)) {
       especie(especie.especieCualEvoluciona)
-      subirNivel()
     }
   }
 }

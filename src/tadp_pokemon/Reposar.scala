@@ -1,6 +1,6 @@
 package tadp_pokemon
 
-class Reposar extends EfectoColateralAtaque {
+object Reposar extends EfectoColateralAtaque {
   val efecto: (Pokemon => Unit) = (unPokemon: Pokemon) => {
       unPokemon.aumentarEnergiaAlMaximo()
       unPokemon.estado(Dormido)

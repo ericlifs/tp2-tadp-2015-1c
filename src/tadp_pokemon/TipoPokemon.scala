@@ -1,6 +1,10 @@
 package tadp_pokemon
 
-abstract class TipoPokemon (val tiposQueLesGana: List[TipoPokemon] = List()) 
+abstract class TipoPokemon (var tiposQueLesGana: List[TipoPokemon] = List()) {
+  def tiposQueLesGana(unaLista : List[TipoPokemon]){
+    tiposQueLesGana = unaLista
+  }
+}
 
 case object Normal extends TipoPokemon()
 case object Fuego extends TipoPokemon(List(Planta, Hielo, Bicho))
@@ -15,5 +19,11 @@ case object Pelea extends TipoPokemon(List(Normal, Hielo, Roca))
 case object Volador extends TipoPokemon(List(Planta, Pelea, Bicho))
 case object Bicho extends TipoPokemon(List(Planta, Psiquico))
 case object Veneno extends TipoPokemon(List(Planta))
-case object Dragon extends TipoPokemon(List(Dragon))
-case object Fantasma extends TipoPokemon(List(Psiquico, Fantasma))
+//salvo la recursividad
+//case object Dragon extends TipoPokemon(List(Dragon)
+case object Dragon extends TipoPokemon(){
+  this.tiposQueLesGana = List(Dragon)
+}
+case object Fantasma extends TipoPokemon(){
+  this.tiposQueLesGana = List(Psiquico, Fantasma)
+}

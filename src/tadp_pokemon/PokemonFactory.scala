@@ -9,7 +9,7 @@ class PokemonFactory {
   
   var experiencia: Int = _
   
-  var genero: String = _
+  var genero: Genero = _
   
   var energia: Int = _
   
@@ -39,12 +39,8 @@ class PokemonFactory {
     experiencia = unaExperiencia
   }
   
-  def genero(unGenero: String) {
-    if (unGenero == "Macho" || unGenero == "Hembra") {
+  def genero(unGenero: Genero) {
       genero = unGenero
-    } else {
-      this.raiseFieldValueException("genero")
-    }
   }
   
   def energia(unaEnergia: Int) {

@@ -11,8 +11,8 @@ class PokemonTest {
     pikachu.energia = 100
     pikachu.energiaMaxima = 150
     pikachu.aumentarEnergia(20)
-    assertEquals("pikachu", pikachu.energia, 120)
+    assertEquals(120, pikachu.energia)
     pikachu.aumentarEnergia(100)
-    assertEquals("pikachu", pikachu.energia, 150)
+    assertEquals(150, pikachu.energia)
   }
 }
