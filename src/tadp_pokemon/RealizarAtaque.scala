@@ -1,6 +1,6 @@
 package tadp_pokemon
 
-object RealizarAtaque extends Actividad {
+class RealizarAtaque extends Actividad {
   
   var ataque: Ataque = _
   
@@ -9,19 +9,19 @@ object RealizarAtaque extends Actividad {
   }
   
   val realizarActividad: (Pokemon => Pokemon) = (unPokemon: Pokemon) => {
-    var ataquePokemon = unPokemon.ataques.find((ataque: (Ataque, Int, Int)) => ataque._1 == ataque)
+    var unAtaquePokemon = unPokemon.ataques.find((unAtaque: (Ataque, Int, Int)) => unAtaque._1 == ataque)
     
-    if (ataquePokemon != None) {
-      var puntosAtaquePokemon = ataquePokemon.get._2
+    unAtaquePokemon.map{ ataquePokemon =>
+      var puntosAtaquePokemon = ataquePokemon._2
       
       if (puntosAtaquePokemon > 0) {
         var experienciaAGanar = 0
         
-        unPokemon.ataques = unPokemon.ataques.map{ ataquePokemon => 
-          if (ataquePokemon._1 == ataque)
-            (ataquePokemon._1, ataquePokemon._2 - 1, ataquePokemon._3)
+        unPokemon.ataques = unPokemon.ataques.map { unAtaque =>
+          if(unAtaque._1 == ataque)
+            decrementarPA(unAtaque)
           else
-            ataquePokemon
+            unAtaque
         }
         
         ataque.tipo match {
@@ -44,5 +44,9 @@ object RealizarAtaque extends Actividad {
     }
     
     unPokemon
+  }
+  
+  def decrementarPA (unAtaque: (Ataque, Int, Int)) : (Ataque, Int, Int) = {
+    (unAtaque._1, unAtaque._2 -1, unAtaque._3)
   }
 }

@@ -1,6 +1,6 @@
 package tadp_pokemon
 
-class Pokemon() {
+case class Pokemon() {
   
   var nivel: Int = _
   

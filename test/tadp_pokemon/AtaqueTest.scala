@@ -55,16 +55,16 @@ class AtaqueTest {
     especiePikachu.tipoPrincipal(Electrico)
     
     val rayito = new Ataque(Electrico, 10)
+    val atacarConRayito = new RealizarAtaque()
+    atacarConRayito.ataque = rayito
     
-    val pikachu = new Pokemon
+    var pikachu = new Pokemon
     pikachu.especie(especiePikachu)
     pikachu.aprenderAtaque(rayito)
     
-    val mew = new Pokemon
-    
-    pikachu.atacarA(mew, rayito)
+    pikachu = atacarConRayito.realizarActividad(pikachu)
     assertEquals((rayito, 9, 10), pikachu.ataques.head)
-    pikachu.atacarA(mew, rayito)
+    pikachu = atacarConRayito.realizarActividad(pikachu)
     assertEquals((rayito, 8, 10), pikachu.ataques.head)
   }
 }

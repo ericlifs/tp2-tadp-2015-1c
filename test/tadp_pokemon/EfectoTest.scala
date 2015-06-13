@@ -12,14 +12,15 @@ class EfectoTest {
     especiePikachu.tipoPrincipal = Electrico
     
     val rayito = new Ataque(Electrico, 10, Reposar)
+    val atacarConRayito = new RealizarAtaque()
+    atacarConRayito.ataque = rayito
     
-    val pikachu = new Pokemon
+    var pikachu = new Pokemon
     pikachu.especie(especiePikachu)
     pikachu.energiaMaxima(100)
     pikachu.aprenderAtaque(rayito)
     
-    val mew = new Pokemon
-    pikachu.atacarA(mew, rayito)
+    pikachu = atacarConRayito.realizarActividad(pikachu)
     
     assertEquals(100, pikachu.energia)
     assertEquals(Dormido, pikachu.estado)
@@ -31,14 +32,16 @@ class EfectoTest {
     especiePikachu.tipoPrincipal = Electrico
     
     val rayito = new Ataque(Electrico, 10, Enfocarse)
+    val atacarConRayito = new RealizarAtaque()
+    atacarConRayito.ataque = rayito
     
-    val pikachu = new Pokemon
+    var pikachu = new Pokemon
     pikachu.especie(especiePikachu)
     pikachu.velocidad(10)
     pikachu.aprenderAtaque(rayito)
     
     val mew = new Pokemon
-    pikachu.atacarA(mew, rayito)
+    pikachu = atacarConRayito.realizarActividad(pikachu)
     
     assertEquals(11, pikachu.velocidad)
   }
@@ -49,14 +52,15 @@ class EfectoTest {
     especiePikachu.tipoPrincipal = Electrico
     
     val rayito = new Ataque(Electrico, 10, Endurecerse)
+    val atacarConRayito = new RealizarAtaque()
+    atacarConRayito.ataque = rayito
     
-    val pikachu = new Pokemon
+    var pikachu = new Pokemon
     pikachu.especie(especiePikachu)
     pikachu.energia(100)
     pikachu.aprenderAtaque(rayito)
     
-    val mew = new Pokemon
-    pikachu.atacarA(mew, rayito)
+    pikachu = atacarConRayito.realizarActividad(pikachu)
     
     assertEquals(105, pikachu.energia)
     assertEquals(Paralizado, pikachu.estado)

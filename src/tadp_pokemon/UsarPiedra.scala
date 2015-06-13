@@ -12,9 +12,7 @@ object UsarPiedra extends Actividad {
     
     unPokemon.especie.criterioEvolucion match {
       case CriterioExpuestoPiedra => {
-        if (piedra == PiedraLunar)
-          unPokemon.evolucionar()
-        else if (piedra.tipo == unPokemon.especie.tipoPrincipal) {
+        if (piedra == PiedraLunar || piedra.tipo == unPokemon.especie.tipoPrincipal){
           unPokemon.evolucionar()
         } else if (piedra.tipo.leGanaA(unPokemon.especie.tipoPrincipal) || piedra.tipo.leGanaA(unPokemon.especie.tipoSecundario)) {
           unPokemon.estado(Envenenado)
