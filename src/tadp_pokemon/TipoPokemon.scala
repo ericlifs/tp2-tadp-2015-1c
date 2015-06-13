@@ -4,6 +4,14 @@ abstract class TipoPokemon (var tiposQueLesGana: List[TipoPokemon] = List()) {
   def tiposQueLesGana(unaLista : List[TipoPokemon]){
     tiposQueLesGana = unaLista
   }
+  
+  def esAfin(otraEspecie: Especie): Boolean = {
+    List(Normal, otraEspecie.tipoPrincipal, otraEspecie.tipoSecundario).exists { tipo => tipo == this }
+  }
+  
+  def leGanaA(otroTipo: TipoPokemon): Boolean = {
+    tiposQueLesGana.contains(otroTipo)
+  }
 }
 
 case object Normal extends TipoPokemon()

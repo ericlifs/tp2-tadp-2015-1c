@@ -18,12 +18,10 @@ class Pokemon() {
   
   var velocidad: Int = _
   
-  var estado: Estado = _
+  var estado: Estado = null
   
   //Los ataques van a estar representados por: (Ataque, PuntosDeAtaque, PuntosDeAtaqueMaximosDelPokemon)
   var ataques: List[(Ataque, Int, Int)] = List()
-  
-  var piedrasExpuesto: List[PiedraEvolutiva] = List()
   
   var especie: Especie = _
   
@@ -84,10 +82,6 @@ class Pokemon() {
       ataques = ataques.::(unAtaque, unAtaque.puntosDeAtaqueMaximo, unAtaque.puntosDeAtaqueMaximo)
   }
   
-  def fueExpuestoAPiedra(unaPiedraEvolutiva: PiedraEvolutiva) {
-    piedrasExpuesto = piedrasExpuesto.::(unaPiedraEvolutiva)
-  }
-  
   def aumentarExperiencia(unaCantidadExperiencia: Int) {
     if (puedeSubirNivelSegunExperiencia(unaCantidadExperiencia)) {
       subirNivel()
@@ -111,27 +105,6 @@ class Pokemon() {
     peso(peso + especie.incrementoPeso)
     fuerza(fuerza + especie.incrementoFuerza)
     velocidad(velocidad + especie.incrementoVelocidad)
-  }
-  
-  def atacarA(unPokemon: Pokemon, unAtaque: Ataque) {
-    var ataquePokemon = ataques.find((ataque: (Ataque, Int, Int)) => ataque._1 == unAtaque)
-    
-    if (ataquePokemon != None) {
-      var puntosAtaquePokemon = ataquePokemon.get._2
-      
-      if (puntosAtaquePokemon > 0) {
-        
-        if (unAtaque.efectoColateral != null)
-          unAtaque.efectoColateral.efecto(this)
-       
-        this.ataques = ataques.map{ ataque => 
-          if (ataque._1 == unAtaque)
-            (ataque._1, ataque._2 - 1, ataque._3)
-          else
-            ataque
-        }
-      }
-    }
   }
   
   def aumentarEnergiaAlMaximo() {

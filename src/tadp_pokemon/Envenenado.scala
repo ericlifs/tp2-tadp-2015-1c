@@ -1,5 +1,5 @@
 package tadp_pokemon
 
-class Envenenado extends Estado {
+case object Envenenado extends Estado {
   
 }
