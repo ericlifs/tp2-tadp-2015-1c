@@ -12,9 +12,7 @@ class AtaqueTest {
     
     val rayito = new Ataque(Electrico, 10)
     
-    val pikachu = new Pokemon
-    pikachu.especie(especiePikachu)
-    pikachu.aprenderAtaque(rayito)
+    val pikachu = new Pokemon().especie(especiePikachu).aprenderAtaque(rayito);
     
     assertEquals((rayito, 10, 10), pikachu.ataques.head)
   }
@@ -27,15 +25,14 @@ class AtaqueTest {
     
     val rayito = new Ataque(Electrico, 10)
     
-    val pikachu = new Pokemon
-    pikachu.especie(especiePikachu)
-    pikachu.aprenderAtaque(rayito)
+    val pikachu = new Pokemon().especie(especiePikachu).aprenderAtaque(rayito);
     
     assertEquals((rayito, 10, 10), pikachu.ataques.head)
   }
   
   @Test
   def `no puede aprender ataques que no son de sus tipos` = {
+    
     val especiePikachu = new Especie
     especiePikachu.tipoPrincipal(Volador)
     especiePikachu.tipoSecundario(Roca)
