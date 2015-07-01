@@ -7,4 +7,9 @@ class Ataque(unTipoPokemon: TipoPokemon, unosPuntosDeAtaqueMaximo: Integer, unEf
   val puntosDeAtaqueMaximo: Int = unosPuntosDeAtaqueMaximo
   
   val efectoColateral: EfectoColateralAtaque = unEfectoColateral
+  
+  def esDeTipo(unTipo: TipoPokemon)= {
+    tipo == unTipo;
+  }
+    
 }

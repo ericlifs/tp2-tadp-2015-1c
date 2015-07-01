@@ -15,11 +15,15 @@ class Especie {
   
   var tipoPrincipal: TipoPokemon = _
   
-  var tipoSecundario: TipoPokemon = _
+  var tipoSecundario: Option[TipoPokemon] = None;
   
   var especieCualEvoluciona: Especie = _
   
   var criterioEvolucion: CriterioEvolucion = _
+  
+  def esAfin(ataque: Ataque):Boolean = {
+    ataque.esDeTipo(tipoPrincipal)|| tipoSecundario.forall(ataque.esDeTipo(_))
+  }
   
   def incrementoEnergiaMaxima(unIncrementoEnergiaMaxima: Int) {
     incrementoEnergiaMaxima = unIncrementoEnergiaMaxima
@@ -48,11 +52,7 @@ class Especie {
   def tipoPrincipal(unTipoPrincipal: TipoPokemon) {
     tipoPrincipal = unTipoPrincipal
   }
-  
-  def tipoSecundario(unTipoSecundario: TipoPokemon) {
-    tipoSecundario = unTipoSecundario
-  }
-  
+    
   def especieCualEvoluciona(unaEspeciCualEvoluciona: Especie) {
     especieCualEvoluciona = unaEspeciCualEvoluciona
   }
