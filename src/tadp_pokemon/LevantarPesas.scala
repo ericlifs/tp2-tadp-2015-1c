@@ -11,6 +11,7 @@ object LevantarPesas extends Actividad {
   val realizarActividad: (Pokemon => Pokemon) = (unPokemon: Pokemon) => {
     
     var factorPesoLevantado = 1
+    var nuevoPokemon = new Pokemon()
     
     unPokemon.especie.tipoPrincipal match {
       case Fantasma => 
@@ -21,14 +22,14 @@ object LevantarPesas extends Actividad {
     }
     
     if (unPokemon.estado == Paralizado)
-      unPokemon.estado = KnockOut
+      nuevoPokemon = unPokemon.copy(estado = KnockOut);
       
     var experienciaAGanar = pesoLevantado * factorPesoLevantado
-    if ((unPokemon.fuerza * 10) > experienciaAGanar)
-      unPokemon.estado(Paralizado)
+    if ((nuevoPokemon.fuerza * 10) > experienciaAGanar)
+      nuevoPokemon.estado(Paralizado)
     else
-      unPokemon.experiencia(unPokemon.experiencia + experienciaAGanar)
+      nuevoPokemon.experiencia(unPokemon.experiencia + experienciaAGanar)
     
-    unPokemon
+    nuevoPokemon
   }
 }

@@ -8,8 +8,7 @@ class PokemonTest {
   @Test
   def `respeta energia maxima` = {
     val pikachu = new Pokemon
-    pikachu.energia = 100
-    pikachu.energiaMaxima = 150
+
     pikachu.aumentarEnergia(20)
     assertEquals(120, pikachu.energia)
     pikachu.aumentarEnergia(100)
