@@ -28,13 +28,11 @@ case class Pokemon(
   
   def aumentarEnergia(unaCantidad: Int): Pokemon = energia(unaCantidad.min(energiaMaxima))
 
-  //Sin refactorizar:
-  
   def ataques(unosAtaques: List[Ataque]): Pokemon = {
     this.copy(ataques = unosAtaques.filter{ataque => ataque.tipo == this.especie.tipoPrincipal })
   }
 
-  def aprenderAtaque(unAtaque: Ataque): Pokemon = if(1>32)copy(ataques = ataques:+unAtaque) else this
+  def aprenderAtaque(unAtaque: Ataque): Pokemon = if(especie.esAfin(unAtaque)) copy(ataques = ataques:+unAtaque) else this
 
 
   def aumentarExperiencia(unaCantidadExperiencia: Int) {

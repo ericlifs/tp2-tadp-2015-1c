@@ -1,13 +1,12 @@
 package tadp_pokemon
 
-class Ataque(unTipoPokemon: TipoPokemon, unosPuntosDeAtaqueMaximo: Integer, unEfectoColateral: EfectoColateralAtaque = null) {
-  
-  val tipo: TipoPokemon = unTipoPokemon
-  
-  val puntosDeAtaqueMaximo: Int = unosPuntosDeAtaqueMaximo
-  
-  val efectoColateral: EfectoColateralAtaque = unEfectoColateral
-  
+class Ataque(
+    val tipo: TipoPokemon, 
+    var puntosDeAtaqueMaximo: Integer,
+    var puntosDeAtaque:Integer,
+    val efectoColateral: EfectoColateralAtaque
+    ) {
+    
   def esDeTipo(unTipo: TipoPokemon)= {
     tipo == unTipo;
   }
