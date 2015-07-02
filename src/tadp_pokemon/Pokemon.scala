@@ -11,6 +11,8 @@ case class Pokemon(
   def energia(unaEnergia: Int): Pokemon = copy(energia = unaEnergia)
   
   def estado(unEstado: Estado): Pokemon = copy(estado = unEstado)
+  
+  def especie(unaEspecie: Especie): Pokemon = copy(especie = unaEspecie)
 
   def aumentarEnergiaMaxima(unaEnergiaMaxima: Int): Pokemon = copy(energiaMaxima = energiaMaxima+unaEnergiaMaxima)
  
@@ -30,29 +32,9 @@ case class Pokemon(
     if(especie.esAfin(unAtaque)) copy(ataques = ataques:+unAtaque) else this
 
   def aumentarExperiencia(unaCantidadExperiencia: Int) = 
-    copy(experiencia = experiencia + unaCantidadExperiencia).subirNivel(unaCantidadExperiencia)
-    
-  def subirNivel(unaCantidadExperiencia: Int) =
-      if (puedeSubirNivelSegunExperiencia(unaCantidadExperiencia)) aumentarCaracteristicas() else this
-
-  def puedeSubirNivelSegunExperiencia(unaCantidadExperiencia: Int): Boolean = 
-    unaCantidadExperiencia >= experienciaNecesariaProximoNivel(nivel)
-
-  def experienciaNecesariaProximoNivel(unNivel: Int): Int = 
-    if (nivel >= 1) (2 * experienciaNecesariaProximoNivel(nivel - 1)) + especie.resistenciaEvolutiva else 0
-
-  def aumentarCaracteristicas(): Pokemon = 
-    aumentarEnergiaMaxima(especie.incrementoEnergiaMaxima)
-    .aumentarPeso(especie.incrementoPeso)
-    .aumentarFuerza(especie.incrementoFuerza)
-    .aumentarVelocidad(especie.incrementoVelocidad)
+    especie.nuevoNivel(copy(experiencia = experiencia + unaCantidadExperiencia),unaCantidadExperiencia)
 
   def aumentarEnergiaAlMaximo() = energia(energiaMaxima)
 
-  def evolucionar(): Pokemon = {
-    if (especie.criterioEvolucion.criterio(this)) {
-      this.especie(especie.especieCualEvoluciona)
-    } else
-      this
-  }
+  def evolucionar(): Pokemon = ??? //TODO
 }
