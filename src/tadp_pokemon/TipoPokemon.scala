@@ -10,7 +10,7 @@ abstract class TipoPokemon (var tiposQueLesGana: List[TipoPokemon] = List()) {
   }
   
   def leGanaA(otroTipo: TipoPokemon): Boolean = {
-    tiposQueLesGana.contains(otroTipo)
+    tiposQueLesGana.contains(otroTipo) //Esto es re Prolog: A los que me dijeron sé que les gano, y a los que no me dijeron la posta es que no sé, pero por universo cerrado te digo q no :P
   }
 }
 

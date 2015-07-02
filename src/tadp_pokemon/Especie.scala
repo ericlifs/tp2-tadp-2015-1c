@@ -9,7 +9,7 @@ class Especie(
     val pesoMaximo: Int,
     val tipoPrincipal: TipoPokemon,
     val tipoSecundario: Option[TipoPokemon] = None,
-    val especieCualEvoluciona: Option[Especie],            //TODO hacer option e inicializar en None;  
+    val especieCualEvoluciona: Option[Especie] = None,
     val criterioEvolucion: CriterioEvolucion
     ){
   
