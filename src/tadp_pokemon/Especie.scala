@@ -1,63 +1,19 @@
 package tadp_pokemon
 
-class Especie {
-  var incrementoEnergiaMaxima: Int = _
+class Especie(
+    val incrementoEnergiaMaxima: Int = 0,
+    val incrementoPeso: Int = 0,
+    val incrementoFuerza: Int = 0,
+    val incrementoVelocidad: Int = 0,
+    val resistenciaEvolutiva: Int,
+    val pesoMaximo: Int,
+    val tipoPrincipal: TipoPokemon,
+    val tipoSecundario: Option[TipoPokemon] = None,
+    val especieCualEvoluciona: Especie,            //TODO hacer option e inicializar en None;  
+    val criterioEvolucion: CriterioEvolucion
+    ){
   
-  var incrementoPeso: Int = _
-  
-  var incrementoFuerza: Int = _
-  
-  var incrementoVelocidad: Int = _
-  
-  var resistenciaEvolutiva: Int = _
-  
-  var pesoMaximo: Int = _
-  
-  var tipoPrincipal: TipoPokemon = _
-  
-  var tipoSecundario: Option[TipoPokemon] = None;
-  
-  var especieCualEvoluciona: Especie = _
-  
-  var criterioEvolucion: CriterioEvolucion = _
-  
-  def esAfin(ataque: Ataque):Boolean = {
-    ataque.esDeTipo(tipoPrincipal)|| tipoSecundario.forall(ataque.esDeTipo(_))
-  }
-  
-  def incrementoEnergiaMaxima(unIncrementoEnergiaMaxima: Int) {
-    incrementoEnergiaMaxima = unIncrementoEnergiaMaxima
-  }
-  
-  def incrementoPeso(unIncrementoPeso: Int) {
-    incrementoPeso = unIncrementoPeso
-  }
-  
-  def pesoMaximo(unPesoMaximo: Int) {
-    pesoMaximo = unPesoMaximo
-  }
-  
-  def incrementoFuerza(unIncrementoFuerza: Int) {
-    incrementoFuerza = unIncrementoFuerza
-  }
-  
-  def incrementoVelocidad(unIncrementoVelocidad: Int) {
-    incrementoVelocidad = unIncrementoVelocidad
-  }
-  
-  def resistenciaEvolutiva(unaResistenciaEvolutiva: Int) {
-    resistenciaEvolutiva = unaResistenciaEvolutiva
-  }
-  
-  def tipoPrincipal(unTipoPrincipal: TipoPokemon) {
-    tipoPrincipal = unTipoPrincipal
-  }
+  def esAfin(ataque: Ataque):Boolean = 
+    List(tipoPrincipal,Normal).exists(ataque.esDeTipo(_))|| tipoSecundario.forall(ataque.esDeTipo(_))
     
-  def especieCualEvoluciona(unaEspeciCualEvoluciona: Especie) {
-    especieCualEvoluciona = unaEspeciCualEvoluciona
-  }
-  
-  def criterioEvolucion(unCriterioEvolucion: CriterioEvolucion) {
-    criterioEvolucion = unCriterioEvolucion
-  }
 }
