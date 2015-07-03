@@ -84,6 +84,9 @@ class Pokemon(
     new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
         estado, especie, ataques)
 
+def analizarRutinas(rutinas: List[Rutina], condicion: (Try[Pokemon] => Int)): String = {
+    var pokemon = Success(this)
+    rutinas.sortWith((rut1, rut2) => condicion(rut1.afectarSiPuede(pokemon)) < condicion(rut2.afectarSiPuede(pokemon))).head.nombre
+  }  
+
 }
-
-
