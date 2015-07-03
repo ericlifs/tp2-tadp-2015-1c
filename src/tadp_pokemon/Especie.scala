@@ -1,6 +1,6 @@
 package tadp_pokemon
 
-class Especie(
+case class Especie(
     val incrementoEnergiaMaxima: Int = 0,
     val incrementoPeso: Int = 0,
     val incrementoFuerza: Int = 0,
@@ -12,6 +12,11 @@ class Especie(
     val especieCualEvoluciona: Option[Especie] = None,
     val criterioEvolucion: CriterioEvolucion
     ){
+  
+  
+  def tipoPrincipal(unTipoPrincipal: TipoPokemon): Especie = copy(tipoPrincipal = unTipoPrincipal)
+  
+  def tipoSecundario(unTipoSecundario: TipoPokemon): Especie = copy(tipoPrincipal = unTipoSecundario)
   
   def esAfin(ataqueBase: AtaqueBase):Boolean = 
     List(tipoPrincipal,Normal).exists(ataqueBase.esDeTipo(_))|| tipoSecundario.exists(ataqueBase.esDeTipo(_))
