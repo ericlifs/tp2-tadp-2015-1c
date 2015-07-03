@@ -6,8 +6,8 @@ object FingirIntercambio extends Actividad {
     if (pokemon.debeEvolucionarTras(this)) pokemon else decaer(pokemon).estado(Triste) 
   
   def decaer(pokemon: Pokemon):Pokemon = 
-    pokemon.genero match {
-            case Macho => pokemon.aumentarPeso(1)
-            case Hembra => pokemon.aumentarPeso(-10)
+    pokemon match {
+            case pokemon @ Pokemon(_,_,Macho,_) => pokemon.aumentarPeso(1)
+            case pokemon @ Pokemon(_,_,Hembra,_) => pokemon.aumentarPeso(-10)
           }
 }

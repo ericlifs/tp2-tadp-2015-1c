@@ -13,7 +13,7 @@ class Ataque(val ataqueBase: AtaqueBase) {
   def perderPuntos(puntos: Integer) =
     puntosDeAtaque -= puntos
     
-  def recuperarPuntajeMaximo()
+  def recuperarPuntajeMaximo() =
     puntosDeAtaque = puntosDeAtaqueMaximo
     
   def esBasicamente(unAtaqueBase: AtaqueBase) = 

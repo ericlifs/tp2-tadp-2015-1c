@@ -4,7 +4,7 @@ import scala.util.Try
 
 class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
     
-  def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
+  override def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
     pokemon.filter(noPuedeAtacar(_, ataqueBase))
   
   def afectar(pokemon: Pokemon): Pokemon  = {
@@ -13,20 +13,19 @@ class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
   }
   
   def experienciaPara(pokemon:Pokemon): Integer = 
-    if (pokemon.especie.esSecundariamenteDe(ataqueBase.tipo)) 
-      experienciaPorGenero(pokemon) 
-    else ataqueBase match{
+    ataqueBase match{
       case AtaqueBase(Dragon,_,_) => 80
-      case AtaqueBase(pokemon.especie.tipoPrincipal,_,_) => 50
-      case _ => 0
+      case _ => experienciaSegunPokemon(pokemon)
     }
   
-  def experienciaPorGenero(pokemon:Pokemon): Integer = 
-    pokemon.genero match{
-      case Hembra => 40
-      case Macho => 20
-    }  
-    
+  def experienciaSegunPokemon(pokemon:Pokemon): Integer = 
+		pokemon match{
+  	  case Pokemon(ataqueBase.tipo,_,_,_) => 50
+  	  case Pokemon(_,Some(ataqueBase.tipo),Macho,_) =>20
+      case Pokemon(_,Some(ataqueBase.tipo),Macho,_) =>40
+      case _ => 0
+    }    
+   
   def noPuedeAtacar(pokemon: Pokemon,tipoAtaque: AtaqueBase): Boolean = 
     !pokemon.ataques.exists{ ataque => ataque.esBasicamente(ataqueBase) && !ataque.estaEnCero}
     

@@ -16,8 +16,8 @@ class Especie(
   def esAfin(ataqueBase: AtaqueBase):Boolean = 
     List(tipoPrincipal,Normal).exists(ataqueBase.esDeTipo(_))|| tipoSecundario.exists(ataqueBase.esDeTipo(_))
     
-  def esDeTipo(tipo: TipoPokemon) =
-    esPrincipalmenteDe(tipo) || esSecundariamenteDe(tipo)
+  def pierdeContra(tipo: TipoPokemon) = 
+    tipo.leGanaA(tipoPrincipal) || tipoSecundario.exists(tipo.leGanaA(_))
     
   def nuevoNivel(pokemon: Pokemon, experiencia: Int):Pokemon = 
     if (experiencia >= experienciaNecesariaProximoNivel(pokemon.nivel)) aumentarCaracteristicas(pokemon) else pokemon
@@ -42,8 +42,5 @@ class Especie(
     
   def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
       tipoPrincipal == tipo
-      
-  def esSecundariamenteDe(tipo: TipoPokemon): Boolean =
-      tipoSecundario.exists(_ == tipo)
       
 }

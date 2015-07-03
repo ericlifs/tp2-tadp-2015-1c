@@ -2,10 +2,25 @@ package tadp_pokemon
 
 import scala.util.{Try,Success,Failure}
 
-case class Pokemon(
+object Pokemon{
+  
+  def apply(
+    nivel: Int, experiencia: Int,  genero: Genero,  energia: Int , 
+    energiaMaxima: Int ,  peso: Int ,  fuerza: Int ,  velocidad: Int , 
+    estado: Estado,  especie: Especie,  ataques: List[Ataque]
+    ) : Pokemon =
+    new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
+        estado, especie, ataques)
+  
+  def unapply(pokemon:Pokemon): Option[(TipoPokemon,Option[TipoPokemon],Genero,Estado)] = 
+    Some((pokemon.especie.tipoPrincipal,pokemon.especie.tipoSecundario,pokemon.genero,pokemon.estado))  
+    
+}
+
+class Pokemon(
     val nivel: Int = 0, val experiencia: Int = 0, val genero: Genero, val energia: Int = 0, 
     val energiaMaxima: Int = 0, val peso: Int = 0, val fuerza: Int = 0, val velocidad: Int = 0, 
-    val estado: Estado, val especie: Especie, val ataques: List[Ataque] = List()
+    val estado: Estado = Neutro, val especie: Especie, val ataques: List[Ataque] = List()
     ) {
  
   def nivel(unNivel: Int): Pokemon = copy(nivel = unNivel)
@@ -60,5 +75,15 @@ case class Pokemon(
   
   def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
     especie.esPrincipalmenteDe(tipo)
-        
+    
+  def copy(
+    nivel: Int = nivel, experiencia: Int = experiencia,  genero: Genero = genero,  energia: Int = energia, 
+    energiaMaxima: Int = energiaMaxima ,  peso: Int = peso,  fuerza: Int = fuerza,  velocidad: Int = velocidad, 
+    estado: Estado = estado,  especie: Especie = especie,  ataques: List[Ataque] = ataques
+    ) =
+    new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
+        estado, especie, ataques)
+
 }
+
+

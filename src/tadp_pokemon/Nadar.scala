@@ -1,27 +1,16 @@
 package tadp_pokemon
 
-object Nadar extends Actividad {
+class Nadar(val minutos : Integer) extends Actividad {
   
-  var minutosNado: Int = 0
+  def afectar(pokemon: Pokemon): Pokemon  = 
+    if (pierdeConAgua(pokemon)) pokemon.estado(KnockOut) else completarNado(pokemon)
   
-  def minutosNado (unosMinutosNado: Int) {
-    minutosNado = unosMinutosNado
-  }
+  def pierdeConAgua(pokemon:Pokemon): Boolean =
+    pokemon.especie.pierdeContra(Agua)
   
-  val realizarActividad: (Pokemon => Pokemon) = (unPokemon: Pokemon) => {
-
-    if (Agua.leGanaA(unPokemon.especie.tipoPrincipal) || Agua.leGanaA(unPokemon.especie.tipoSecundario))
-      unPokemon.estado(KnockOut)
-    else {
-      for (i <- 1 to minutosNado){
-        unPokemon.energia(unPokemon.energia - 1)
-        unPokemon.experiencia(unPokemon.experiencia + 200)
-      }
-      
-      if (unPokemon.especie.tipoPrincipal == Agua)
-        unPokemon.velocidad(unPokemon.velocidad + (minutosNado / 60))
+  def completarNado(pokemon: Pokemon): Pokemon  = 
+    pokemon match {
+      case pokemon @(Pokemon(Agua,_,_,_)|Pokemon(_,Some(Agua),_,_)) => pokemon.aumentarVelocidad(minutos/60)
+      case pokemon => pokemon
     }
-    
-    unPokemon
-  }
 }

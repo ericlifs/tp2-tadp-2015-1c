@@ -4,44 +4,16 @@ class LevantarPesas(val kilos: Integer) extends Actividad {
   
 import scala.util.Try
   
-  def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
+  override def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
     pokemon.filter(_.esPrincipalmenteDe(Fantasma))
   
   def afectar(pokemon: Pokemon): Pokemon  = 
-    pokemon.aumentarExperiencia(kilos * factorExperiencia(pokemon))
-    
-  def factorExperiencia(pokemon: Pokemon): Integer =
-    if (pokemon.especie.esDeTipo(Pelea)) 2 else 1
+    if(pokemon.fuerza*10 <= kilos) levantarPesasLivianas(pokemon) else pokemon.estado(Paralizado)
   
-  
-  var pesoLevantado: Int = 0
-  
-  def pesoLevantado (unPesoLevantado: Int) {
-    pesoLevantado = unPesoLevantado
-  }
-  
-  val realizarActividad: (Pokemon => Pokemon) = (unPokemon: Pokemon) => {
-    
-    var factorPesoLevantado = 1
-    var nuevoPokemon = new Pokemon()
-    
-    unPokemon.especie.tipoPrincipal match {
-      case Fantasma => 
-      case tipo: TipoPokemon => {
-        if (tipo == Pelea || unPokemon.especie.tipoPrincipal == Pelea)
-          factorPesoLevantado = 2
-      }
+  def levantarPesasLivianas(pokemon: Pokemon): Pokemon = 
+    pokemon match {
+      case pokemon @ (Pokemon(Pelea,_,_,_) | Pokemon(_,Some(Pelea),_,_))=> pokemon.aumentarExperiencia(2*kilos)
+      case pokemon @ Pokemon(_,_,_,Paralizado) => pokemon.estado(KnockOut)
+      case pokemon => pokemon.aumentarExperiencia(kilos) 
     }
-    
-    if (unPokemon.estado == Paralizado)
-      nuevoPokemon = unPokemon.copy(estado = KnockOut);
-      
-    var experienciaAGanar = pesoLevantado * factorPesoLevantado
-    if ((nuevoPokemon.fuerza * 10) > experienciaAGanar)
-      nuevoPokemon.estado(Paralizado)
-    else
-      nuevoPokemon.experiencia(unPokemon.experiencia + experienciaAGanar)
-    
-    nuevoPokemon
-  }
 }
