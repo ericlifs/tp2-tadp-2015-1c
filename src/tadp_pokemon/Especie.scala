@@ -13,9 +13,12 @@ class Especie(
     val criterioEvolucion: CriterioEvolucion
     ){
   
-  def esAfin(ataque: Ataque):Boolean = 
-    List(tipoPrincipal,Normal).exists(ataque.esDeTipo(_))|| tipoSecundario.forall(ataque.esDeTipo(_))
-
+  def esAfin(ataqueBase: AtaqueBase):Boolean = 
+    List(tipoPrincipal,Normal).exists(ataqueBase.esDeTipo(_))|| tipoSecundario.exists(ataqueBase.esDeTipo(_))
+    
+  def esDeTipo(tipo: TipoPokemon) =
+    esPrincipalmenteDe(tipo) || esSecundariamenteDe(tipo)
+    
   def nuevoNivel(pokemon: Pokemon, experiencia: Int):Pokemon = 
     if (experiencia >= experienciaNecesariaProximoNivel(pokemon.nivel)) aumentarCaracteristicas(pokemon) else pokemon
 
@@ -30,6 +33,17 @@ class Especie(
     
   def hacerEvolucionar(pokemon: Pokemon): Pokemon =
     pokemon.especie(especieCualEvoluciona.getOrElse(this))
-
+    
+  def debeEvolucionarTras(actividad: Actividad,pokemon: Pokemon): Boolean =
+    criterioEvolucion.debeEvolucionarTras(pokemon,actividad)
   
+  def evolucionarSiDebeTras(actividad: Actividad,pokemon: Pokemon):Pokemon =
+    if(debeEvolucionarTras(actividad,pokemon)) hacerEvolucionar(pokemon) else pokemon
+    
+  def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
+      tipoPrincipal == tipo
+      
+  def esSecundariamenteDe(tipo: TipoPokemon): Boolean =
+      tipoSecundario.exists(_ == tipo)
+      
 }

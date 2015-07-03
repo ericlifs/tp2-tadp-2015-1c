@@ -1,16 +1,36 @@
 package tadp_pokemon
 
-case class Ataque(
+import tadp_pokemon.TipoPokemon
+
+class Ataque(val ataqueBase: AtaqueBase) {
+  
+  var puntosDeAtaqueMaximo: Integer = ataqueBase.puntosDeAtaqueMaximoInicial;
+  var puntosDeAtaque:Integer = ataqueBase.puntosDeAtaqueMaximoInicial;
+  
+  def aumentarMaximo(puntos: Integer) = 
+    puntosDeAtaqueMaximo +=  puntos
+    
+  def perderPuntos(puntos: Integer) =
+    puntosDeAtaque -= puntos
+    
+  def recuperarPuntajeMaximo()
+    puntosDeAtaque = puntosDeAtaqueMaximo
+    
+  def esBasicamente(unAtaqueBase: AtaqueBase) = 
+    ataqueBase == unAtaqueBase;
+  
+  def estaEnCero() =
+    puntosDeAtaque <= 0
+    
+}
+
+case class AtaqueBase(
     val tipo: TipoPokemon, 
-    val puntosDeAtaqueMaximo: Integer,
-    val puntosDeAtaque:Integer,
-    val efectoColateral: EfectoColateralAtaque
+    val puntosDeAtaqueMaximoInicial: Integer,
+    val efectoColateral: Pokemon => Pokemon
     ) {
     
   def esDeTipo(unTipo: TipoPokemon)= 
     tipo == unTipo;
   
-  def aumentarMaximo(puntos: Integer): Ataque = 
-    copy(puntosDeAtaqueMaximo = puntosDeAtaqueMaximo + puntos)
-    
 }

@@ -26,37 +26,39 @@ case class Pokemon(
   
   def aumentarEnergia(unaCantidad: Int): Pokemon = energia((energia+unaCantidad).min(energiaMaxima))
 
-  def ataques(unosAtaques: List[Ataque]): Pokemon = {
-    unosAtaques.foldLeft(this){(pokemon, ataque) => pokemon.aprenderAtaque(ataque)}
+  def ataques(unosAtaques: List[AtaqueBase]): Pokemon = {
+    unosAtaques.foldLeft(this){(pokemon, ataqueBase) => pokemon.aprenderAtaque(ataqueBase)}
   }
 
-  def aprenderAtaque(unAtaque: Ataque): Pokemon = 
-    if(especie.esAfin(unAtaque)) copy(ataques = ataques:+unAtaque) else this
+  def aprenderAtaque(ataqueBase: AtaqueBase): Pokemon = 
+    copy(ataques = ataques:+new Ataque(ataqueBase))
 
-  def foreachAtaque(f: (Ataque => Ataque)) =
-    ataques(ataques.map(f))
+  def foreachAtaque(funcion: (Ataque => Unit)) ={
+      ataques.foreach(funcion)
+      this      
+    }   
     
   def aumentarExperiencia(unaCantidadExperiencia: Int) = 
     especie.nuevoNivel(copy(experiencia = experiencia + unaCantidadExperiencia),unaCantidadExperiencia)
 
   def aumentarEnergiaAlMaximo() = energia(energiaMaxima)
+      
+  def evolucionarSiDebeTras(actividad: Actividad): Pokemon = 
+    especie.evolucionarSiDebeTras(actividad,this)
   
-  def estaCansado() = 
-    energia < 0.5*energiaMaxima
-    
-  def dormirse() : Pokemon =
-    if(estaCansado() && estado == Neutro) dormirse() else this
-    
-  def quedarseDormido()=
-    estado(Dormido)
+  def debeEvolucionarTras(actividad: Actividad): Boolean =
+    especie.debeEvolucionarTras(actividad,this)
 
-  def evolucionar(): Pokemon = ??? //TODO
-    
-}
-
-class Misteriosa{
+  def esValido() = ??? //TODO
   
-  def intentarActividad(pokemon: Try[Pokemon], actividad: Actividad): Try[Pokemon] = //TODO despues hacer bien
-    actividad.realizarActividadSiPuede(pokemon) //TODO a discutir qué polimorfismo usar
+  def hacerActividad(actividad: Actividad) =
+    estado match{
+      case KnockOut => Failure(new Exception("Pokemon estaba KnockOut"))
+      case Dormido => Success(this)
+      case _ => actividad.afectarSiPuede(Success(this))
+    }
   
+  def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
+    especie.esPrincipalmenteDe(tipo)
+        
 }

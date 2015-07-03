@@ -1,6 +1,18 @@
 package tadp_pokemon
 
-object LevantarPesas extends Actividad {
+class LevantarPesas(val kilos: Integer) extends Actividad {
+  
+import scala.util.Try
+  
+  def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
+    pokemon.filter(_.esPrincipalmenteDe(Fantasma))
+  
+  def afectar(pokemon: Pokemon): Pokemon  = 
+    pokemon.aumentarExperiencia(kilos * factorExperiencia(pokemon))
+    
+  def factorExperiencia(pokemon: Pokemon): Integer =
+    if (pokemon.especie.esDeTipo(Pelea)) 2 else 1
+  
   
   var pesoLevantado: Int = 0
   

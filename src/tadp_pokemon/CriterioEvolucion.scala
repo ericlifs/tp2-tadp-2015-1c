@@ -1,5 +1,7 @@
 package tadp_pokemon
 
 trait CriterioEvolucion {
-  val criterio: Pokemon => Boolean
+  
+  def debeEvolucionarTras(pokemon: Pokemon,actividad: Actividad): Boolean
+  
 }

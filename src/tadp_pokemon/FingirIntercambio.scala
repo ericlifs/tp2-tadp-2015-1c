@@ -1,18 +1,13 @@
 package tadp_pokemon
 
 object FingirIntercambio extends Actividad {
-  val realizarActividad: (Pokemon => Pokemon) = (unPokemon: Pokemon) => {
-      unPokemon.especie.criterioEvolucion match {
-        case CriterioIntercambiado => unPokemon.evolucionar()
-        case _ => {
-          unPokemon.estado(Triste)
-          unPokemon.genero match {
-            case Macho => unPokemon.peso(unPokemon.peso + 1)
-            case Hembra => unPokemon.peso(unPokemon.peso - 10)
+  
+  def afectar(pokemon: Pokemon): Pokemon =
+    if (pokemon.debeEvolucionarTras(this)) pokemon else decaer(pokemon).estado(Triste) 
+  
+  def decaer(pokemon: Pokemon):Pokemon = 
+    pokemon.genero match {
+            case Macho => pokemon.aumentarPeso(1)
+            case Hembra => pokemon.aumentarPeso(-10)
           }
-        }
-      }
-        
-      unPokemon
-  }
 }

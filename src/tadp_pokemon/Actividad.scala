@@ -4,13 +4,14 @@ import scala.util.Try
 
 trait Actividad {
   
-  def realizarActividadSiPuede(pokemon: Try[Pokemon]): Try[Pokemon] = 
-    pokemon.filter(puedeSerHecha(_)).map(realizarActividad(_)) // Si usamos polimorfismo param. se convierte (roughly) en pokemon.filter(_.puedeHacer(this)).map(_.realizarActividad(this))
+  def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] = pokemon
   
-  def puedeSerHecha(pokemon: Pokemon): Boolean = true
-  
-  def realizarActividad(pokemon: Pokemon): Pokemon
+  def realizarActividad(pokemon: Try[Pokemon]): Try[Pokemon] =
+    pokemon.flatMap(_.hacerActividad(this)).map(_.evolucionarSiDebeTras(this))
     
+  def afectarSiPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
+    siPuede(pokemon).map(afectar(_)).filter(_.esValido())
+  
+  def afectar(pokemon: Pokemon): Pokemon
+  
 }
-
-//Si hacemos un filter nuestro sería algo más onda pokemon.filter(puedeSerHecha(_), excepcion)... siendo excepcion un val de la Actividad 
