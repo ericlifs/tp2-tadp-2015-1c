@@ -2,16 +2,12 @@ package tadp_pokemon
 
 import scala.util.{Try,Success,Failure}
 
-class Rutina extends Actividad{
-  var actividades: List[Actividad] = List()
-  var nombre: String = ""
+class Rutina(val actividades: List[Actividad] = List(), val nombre: String) extends Actividad{
+    
+  def realizarActividad(pokemon: Try[Pokemon]): Try[Pokemon] =
+    actividades.foldLeft[Try[Pokemon]](pokemon){
+    (pokemon:Try[Pokemon], actividad: Actividad) =>
+      actividad.realizarActividad(pokemon)    
+    }
   
-  def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] = {
-    actividades.foldLeft(pokemon)((unPokemon, actividad) => actividad.siPuede(unPokemon))
-  }
-  
-  val afectar: (Pokemon => Pokemon) = (unPokemon: Pokemon) => {
-    actividades.foldLeft(unPokemon)((pokemon,actividad)=> actividad.afectar(pokemon))
-    unPokemon
-  }
 }
