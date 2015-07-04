@@ -39,7 +39,7 @@ class Pokemon(
   
   def aumentarPeso(unPeso: Int): Pokemon = copy(peso = peso + unPeso)
   
-  def aumentarEnergia(unaCantidad: Int): Pokemon = energia((energia+unaCantidad).min(energiaMaxima))
+  def aumentarEnergia(unaCantidad: Int): Pokemon = copy(energia = (energia+unaCantidad).min(energiaMaxima))
 
   def ataques(unosAtaques: List[AtaqueBase]): Pokemon = {
     unosAtaques.foldLeft(this){(pokemon, ataqueBase) => pokemon.aprenderAtaque(ataqueBase)}
