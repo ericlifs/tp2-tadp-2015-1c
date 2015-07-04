@@ -25,7 +25,7 @@ case class Especie(
     tipo.leGanaA(tipoPrincipal) || tipoSecundario.exists(tipo.leGanaA(_))
     
   def subirNivel(pokemon: Pokemon, tareaIntermedia: Pokemon => Pokemon):Pokemon = 
-    if (pokemon.puedeEvolucionar())
+    if (pokemon.puedeSubirNivel())
       tareaIntermedia(pokemon.incrementarNivel()).aumentarCaracteristicas(incrementoEnergiaMaxima, incrementoPeso, incrementoFuerza, incrementoVelocidad)
     else 
       pokemon

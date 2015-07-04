@@ -72,7 +72,7 @@ class Pokemon(
   def debeEvolucionarTras(actividad: Actividad): Boolean =
     especie.debeEvolucionarTras(actividad,this)
     
-  def puedeEvolucionar():Boolean = 
+  def puedeSubirNivel():Boolean = 
     experiencia >= especie.experienciaNecesariaProximoNivel(nivel)
 
   def esValido() =
