@@ -6,7 +6,7 @@ case class Especie(
     val incrementoFuerza: Int = 0,
     val incrementoVelocidad: Int = 0,
     val resistenciaEvolutiva: Int,
-    val pesoMaximo: Int,
+    val pesoMaximo: Int = 1000,
     val tipoPrincipal: TipoPokemon,
     val tipoSecundario: Option[TipoPokemon] = None,
     val especieCualEvoluciona: Option[Especie] = None,

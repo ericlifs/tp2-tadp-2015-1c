@@ -1,6 +1,6 @@
 package tadp_pokemon
 
-import scala.util.Try
+import scala.util.{Try,Success,Failure}
 
 
 import org.junit.Assert.assertEquals
@@ -8,44 +8,36 @@ import org.junit.Test
 import org.junit.Ignore
 
 class AtaqueTest {
-  @Test
-  def `puede aprender ataques de su tipo principal` = {
- 
-    val especiePikachu = new Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100)
-
- 
-    var pikachu = new Pokemon(genero=Macho,especie=especiePikachu).aprenderAtaque(new AtaqueBase(Electrico,30,null)).aumentarExperiencia(100).aprenderAtaque(new AtaqueBase(Electrico,30,null));
   
-   //  assertEquals(rayito., pikachu.ataques.head) hay que mapear el ataque con ataque base
+  var pikachu,beedrill,otro,squirtle:Pokemon
+    
+  override def setUp = {
+    
+    pikachu = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
+    beedrill = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Volador ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
+    squirtle = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
+    otro = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Planta, tipoSecundario = Some(Electrico) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
+  }
+  
+  
+  @Test
+  def `puede aprender ataques de su tipo principal` = {  
+   assert(AprenderAtaque(AtaqueBase(Electrico,30)).realizarActividad(Success(pikachu)).get.ataques.size == 1)  
   }
   
   @Test
   def `puede aprender ataques de su tipo secundario` = {
- 
- 
-    val especiePikachu = new Especie(tipoPrincipal= Volador ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100).tipoSecundario(Electrico);
-
- 
-    var pikachu = new Pokemon(genero=Macho,especie=especiePikachu).aprenderAtaque(new AtaqueBase(Electrico,30,null)).aumentarExperiencia(100).aprenderAtaque(new AtaqueBase(Electrico,30,null));
-  
-   //  assertEquals(rayito., pikachu.ataques.head) hay que mapear el ataque con ataque base
+    assert(AprenderAtaque(AtaqueBase(Electrico,30)).realizarActividad(Success(otro)).get.ataques.size == 1)
   }
   
   @Test
-  def `no puede aprender ataques que no son de sus tipos` = {
-    val especiePikachu = new Especie(tipoPrincipal= Volador,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100)
-
- 
-    var pikachu = new Pokemon(genero=Macho,especie=especiePikachu).aprenderAtaque(new AtaqueBase(Electrico,30,null)).aumentarExperiencia(100).aprenderAtaque(new AtaqueBase(Electrico,30,null));
-  
-    assert(pikachu.ataques.isEmpty)
+  def `no puede aprender ataques que no son de sus tipos` = {    
+    assert(AprenderAtaque(AtaqueBase(Electrico,30)).realizarActividad(Success(squirtle)).get.ataques.isEmpty,"Aprende aunque no sea de sus dos tipos")
+    assert(AprenderAtaque(AtaqueBase(Electrico,30)).realizarActividad(Success(beedrill)).get.ataques.isEmpty,"Aprende aunque no sea de suprincipal sin tener secundario")
   }
-  
+    
   @Test
   def `atacar decrementa la cantidad de puntos de ataque` = {
-
-    
-    val especiePikachu = new Especie(tipoPrincipal= Electrico,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100)
     
     val rayito = new Ataque(new AtaqueBase(Electrico,30,null))
     val atacarConRayito = new RealizarAtaque(new AtaqueBase(Electrico,30,null))
@@ -63,10 +55,7 @@ class AtaqueTest {
 
 
 def `atacar aumenta sus puntos de experiencia` = {
-  
-  
-  val especiePikachu = new Especie(tipoPrincipal= Electrico,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100)
-    
+ 
     val rayito = new Ataque(new AtaqueBase(Electrico,30,null))
     val atacarConRayito = new RealizarAtaque(new AtaqueBase(Electrico,30,null))
     

@@ -27,7 +27,7 @@ class Ataque(val ataqueBase: AtaqueBase) {
 case class AtaqueBase(
     val tipo: TipoPokemon, 
     val puntosDeAtaqueMaximoInicial: Integer,
-    val efectoColateral: Pokemon => Pokemon
+    val efectoColateral: Pokemon => Pokemon = identity
     ) {
     
   def esDeTipo(unTipo: TipoPokemon)= 

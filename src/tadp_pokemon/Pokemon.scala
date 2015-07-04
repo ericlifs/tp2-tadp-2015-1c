@@ -5,9 +5,9 @@ import scala.util.{Try,Success,Failure}
 object Pokemon{
   
   def apply(
-    nivel: Int, experiencia: Int,  genero: Genero,  energia: Int , 
-    energiaMaxima: Int ,  peso: Int ,  fuerza: Int ,  velocidad: Int , 
-    estado: Estado,  especie: Especie,  ataques: List[Ataque]
+    nivel: Int = 1,  experiencia: Int = 1,  genero: Genero,  energia: Int = 1, 
+     energiaMaxima: Int = 1,  peso: Int = 1,  fuerza: Int = 1,  velocidad: Int = 1, 
+     estado: Estado = Neutro,  especie: Especie,  ataques: List[Ataque] = List()
     ) : Pokemon =
     new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
         estado, especie, ataques)
@@ -18,8 +18,8 @@ object Pokemon{
 }
 
 class Pokemon(
-    val nivel: Int = 0, val experiencia: Int = 0, val genero: Genero, val energia: Int = 0, 
-    val energiaMaxima: Int = 0, val peso: Int = 0, val fuerza: Int = 0, val velocidad: Int = 0, 
+    val nivel: Int = 1, val experiencia: Int = 1, val genero: Genero, val energia: Int = 1, 
+    val energiaMaxima: Int = 1, val peso: Int = 1, val fuerza: Int = 1, val velocidad: Int = 1, 
     val estado: Estado = Neutro, val especie: Especie, val ataques: List[Ataque] = List()
     ) {
  
@@ -78,7 +78,7 @@ class Pokemon(
   def esValido() =
     entre(nivel,1,100)&&entre(fuerza,1,100)&&entre(velocidad,1,100)&&peso<=especie.pesoMaximo
     
-  def entre (numero: Int,minimo: Int,maximo: Int): Boolean = numero <= minimo && numero >= maximo  
+  def entre (numero: Int,minimo: Int,maximo: Int): Boolean = numero <= maximo && numero >= minimo  
   
   def hacerActividad(actividad: Actividad) =
     estado match{
