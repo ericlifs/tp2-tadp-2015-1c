@@ -54,15 +54,26 @@ class Pokemon(
     }   
     
   def aumentarExperiencia(unaCantidadExperiencia: Int) = 
-    especie.nuevoNivel(copy(experiencia = experiencia + unaCantidadExperiencia),unaCantidadExperiencia)
+    copy(experiencia = experiencia + unaCantidadExperiencia)
+    
+  def incrementarNivel()= copy(nivel = nivel+1)
 
   def aumentarEnergiaAlMaximo() = energia(energiaMaxima)
+  
+  def aumentarCaracteristicas(incrementoEnergiaMaxima: Int, incrementoPeso: Int, incrementoFuerza: Int, incrementoVelocidad: Int): Pokemon = 
+    aumentarEnergiaMaxima(incrementoEnergiaMaxima)
+    .aumentarPeso(incrementoPeso)
+    .aumentarFuerza(incrementoFuerza)
+    .aumentarVelocidad(incrementoVelocidad)
       
-  def evolucionarSiDebeTras(actividad: Actividad): Pokemon = 
-    especie.evolucionarSiDebeTras(actividad,this)
+  def efectosPosterioresActividad(actividad: Actividad): Pokemon = 
+    especie.efectosPosterioresActividad(actividad,this)
   
   def debeEvolucionarTras(actividad: Actividad): Boolean =
     especie.debeEvolucionarTras(actividad,this)
+    
+  def puedeEvolucionar():Boolean = 
+    experiencia >= especie.experienciaNecesariaProximoNivel(nivel)
 
   def esValido() = ??? //TODO
   

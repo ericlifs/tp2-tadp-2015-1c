@@ -7,7 +7,7 @@ trait Actividad {
   def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] = pokemon
   
   def realizarActividad(pokemon: Try[Pokemon]): Try[Pokemon] =
-    pokemon.flatMap(_.hacerActividad(this)).map(_.evolucionarSiDebeTras(this))
+    pokemon.flatMap(_.hacerActividad(this)).map(_.efectosPosterioresActividad(this))
     
   def afectarSiPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
     siPuede(pokemon).map(afectar(_)).filter(_.esValido())

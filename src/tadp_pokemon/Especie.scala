@@ -24,26 +24,23 @@ case class Especie(
   def pierdeContra(tipo: TipoPokemon) = 
     tipo.leGanaA(tipoPrincipal) || tipoSecundario.exists(tipo.leGanaA(_))
     
-  def nuevoNivel(pokemon: Pokemon, experiencia: Int):Pokemon = 
-    if (experiencia >= experienciaNecesariaProximoNivel(pokemon.nivel)) aumentarCaracteristicas(pokemon) else pokemon
-
+  def subirNivel(pokemon: Pokemon, tareaIntermedia: Pokemon => Pokemon):Pokemon = 
+    if (pokemon.puedeEvolucionar())
+      tareaIntermedia(pokemon.incrementarNivel()).aumentarCaracteristicas(incrementoEnergiaMaxima, incrementoPeso, incrementoFuerza, incrementoVelocidad)
+    else 
+      pokemon
+    
   def experienciaNecesariaProximoNivel(unNivel: Int): Int = 
     if (unNivel >= 1) (2 * experienciaNecesariaProximoNivel(unNivel - 1)) + resistenciaEvolutiva else 0
-
-  def aumentarCaracteristicas(pokemon:Pokemon): Pokemon = 
-    pokemon.aumentarEnergiaMaxima(incrementoEnergiaMaxima)
-    .aumentarPeso(incrementoPeso)
-    .aumentarFuerza(incrementoFuerza)
-    .aumentarVelocidad(incrementoVelocidad)
-    
+      
   def hacerEvolucionar(pokemon: Pokemon): Pokemon =
     pokemon.especie(especieCualEvoluciona.getOrElse(this))
     
   def debeEvolucionarTras(actividad: Actividad,pokemon: Pokemon): Boolean =
     criterioEvolucion.debeEvolucionarTras(pokemon,actividad)
   
-  def evolucionarSiDebeTras(actividad: Actividad,pokemon: Pokemon):Pokemon =
-    if(debeEvolucionarTras(actividad,pokemon)) hacerEvolucionar(pokemon) else pokemon
+  def efectosPosterioresActividad(actividad: Actividad, pokemon: Pokemon): Pokemon =    
+    subirNivel(pokemon, if(debeEvolucionarTras(actividad,pokemon)) hacerEvolucionar(_) else identity(_))
     
   def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
       tipoPrincipal == tipo
