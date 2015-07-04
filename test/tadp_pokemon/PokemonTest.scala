@@ -6,7 +6,7 @@ import org.junit.Ignore
 
 class PokemonTest {
   
-  var pikachu:Pokemon
+  var pikachu:Pokemon = _
   
   @Test
   def `respeta energia maxima` = {

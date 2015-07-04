@@ -8,7 +8,7 @@ import org.junit.Ignore
 
 class EfectoTest {
   
-   var pikachu:Pokemon
+  var pikachu:Pokemon = _
   
   @Test
   def `el efecto reposar sube la energía al máximo y lo deja dormido` = {
