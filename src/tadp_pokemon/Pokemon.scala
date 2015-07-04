@@ -75,7 +75,10 @@ class Pokemon(
   def puedeEvolucionar():Boolean = 
     experiencia >= especie.experienciaNecesariaProximoNivel(nivel)
 
-  def esValido() = ??? //TODO
+  def esValido() =
+    entre(nivel,1,100)&&entre(fuerza,1,100)&&entre(velocidad,1,100)&&peso<=especie.pesoMaximo
+    
+  def entre (numero: Int,minimo: Int,maximo: Int): Boolean = numero <= minimo && numero >= maximo  
   
   def hacerActividad(actividad: Actividad) =
     estado match{
