@@ -5,7 +5,7 @@ import scala.util.Try
 class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
     
   override def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
-    pokemon.filter(noPuedeAtacar(_, ataqueBase))
+    pokemon.filter(puedeAtacar(_, ataqueBase))
   
   def afectar(pokemon: Pokemon): Pokemon  = {
     pokemon.ataques.find(_.esBasicamente(ataqueBase)).get.perderPuntos(1)
@@ -22,11 +22,11 @@ class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
 		pokemon match{
   	  case Pokemon(ataqueBase.tipo,_,_,_) => 50
   	  case Pokemon(_,Some(ataqueBase.tipo),Macho,_) =>20
-      case Pokemon(_,Some(ataqueBase.tipo),Macho,_) =>40
+      case Pokemon(_,Some(ataqueBase.tipo),Hembra,_) =>40
       case _ => 0
     }    
    
-  def noPuedeAtacar(pokemon: Pokemon,tipoAtaque: AtaqueBase): Boolean = 
-    !pokemon.ataques.exists{ ataque => ataque.esBasicamente(ataqueBase) && !ataque.estaEnCero}
+  def puedeAtacar(pokemon: Pokemon,tipoAtaque: AtaqueBase): Boolean = 
+    pokemon.ataques.exists{ ataque => ataque.esBasicamente(ataqueBase) && !ataque.estaEnCero}
     
 }
