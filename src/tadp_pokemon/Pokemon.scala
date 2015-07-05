@@ -60,6 +60,9 @@ class Pokemon(
 
   def aumentarEnergiaAlMaximo() = energia(energiaMaxima)
   
+  def aumentarCaracteristicas(): Pokemon =
+    especie.aumentarCaracteristicasPokemon(this)
+  
   def aumentarCaracteristicas(incrementoEnergiaMaxima: Int, incrementoPeso: Int, incrementoFuerza: Int, incrementoVelocidad: Int): Pokemon = 
     aumentarEnergiaMaxima(incrementoEnergiaMaxima)
     .aumentarPeso(incrementoPeso)
