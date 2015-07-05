@@ -98,9 +98,16 @@ class Pokemon(
     new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
         estado, especie, ataques)
 
-  def analizarRutinas(rutinas: List[Rutina], condicion: (Try[Pokemon] => Int)): String = {
-    var pokemon = Success(this)
-    rutinas.sortWith((rut1, rut2) => condicion(rut1.realizar(pokemon)) < condicion(rut2.realizar(pokemon))).head.nombre
-  }  
-
+  def analizarRutinas(rutinas: List[Rutina], pokemonEsMejor: Pokemon => Pokemon => Boolean): Option[Rutina] = 
+    maximaRutinaSegun(pokemonEsMejor,rutinas.filter(_.realizar(this).isSuccess)) match
+    { 
+    case RutinaVacia => None
+    case rutina @ RutinaComun(_,_) => Some(rutina)
+    }
+      
+  def mejorRutinaSegun(pokemonEsMejor: Pokemon => Pokemon => Boolean, rutina1:Rutina, rutina2:Rutina):Rutina =
+    if(pokemonEsMejor (rutina1.realizar(this).get) (rutina2.realizar(this).get)) rutina1 else rutina2
+    
+  def maximaRutinaSegun(pokemonEsMejor: Pokemon => Pokemon => Boolean, rutinas: List[Rutina]):Rutina=
+    rutinas.foldLeft[Rutina](RutinaVacia)(mejorRutinaSegun(pokemonEsMejor,_,_))
 }
