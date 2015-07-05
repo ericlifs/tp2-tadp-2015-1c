@@ -14,15 +14,15 @@ class RutinaTest {
     def <<[C](g: C => A): C => B = f.compose(g)
   }
   
-  val especieRaychu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
-  val especiePikachu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, especieCualEvoluciona = Some(especieRaychu))
+  val especieRaychu = Especie(tipoPrincipal= Electrico,pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
+  val especiePikachu = Especie(tipoPrincipal= Electrico ,evolucionador = Some(Evolucionador(CriterioSubirNivel(3),especieRaychu)),pesoMaximo= 100,resistenciaEvolutiva=70)
   val pikachu = Pokemon(energia=10,fuerza=10,genero=Macho,especie= especiePikachu )
   val raychu =  Pokemon(genero=Macho,especie= especieRaychu )
-  val especieBeedrill = Especie(tipoPrincipal= Tierra ,tipoSecundario = Some(Pelea),criterioEvolucion=CriterioExpuestoPiedraComun,pesoMaximo= 100,resistenciaEvolutiva=500,especieCualEvoluciona = Some(especieRaychu) )
-  val especieSquirtle = Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=500)
+  val especieBeedrill = Especie(tipoPrincipal= Tierra ,tipoSecundario = Some(Pelea),evolucionador = Some(Evolucionador(CriterioExpuestoPiedraComun,especieRaychu)),pesoMaximo= 100,resistenciaEvolutiva=500)
+  val especieSquirtle = Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,pesoMaximo= 100,resistenciaEvolutiva=500)
   val beedrill = Pokemon(energia = 100, genero=Macho,especie= especieBeedrill)
   val squirtle = Pokemon(peso = 20,energia = 100, genero=Hembra,especie=especieSquirtle)
-  val otro = Pokemon(energia = 100,genero=Macho,especie=Especie(tipoPrincipal= Fantasma, tipoSecundario = Some(Agua) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=500))
+  val otro = Pokemon(energia = 100,genero=Macho,especie=Especie(tipoPrincipal= Fantasma, tipoSecundario = Some(Agua) ,pesoMaximo= 100,resistenciaEvolutiva=500))
 
   val masFuerte: (Pokemon, Pokemon) => Boolean = _.fuerza > _.fuerza
   val rutinaComerHierro3 = RutinaComun(List(ComerHierro,ComerHierro,ComerHierro))

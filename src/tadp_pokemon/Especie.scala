@@ -1,5 +1,7 @@
 package tadp_pokemon
 
+case class Evolucionador(val criterio:CriterioEvolucion, val especieFutura: Especie)
+
 case class Especie(
     val incrementoEnergiaMaxima: Int = 1,
     val incrementoPeso: Int = 1,
@@ -9,8 +11,7 @@ case class Especie(
     val pesoMaximo: Int = 1000,
     val tipoPrincipal: TipoPokemon,
     val tipoSecundario: Option[TipoPokemon] = None,
-    val especieCualEvoluciona: Option[Especie] = None,
-    val criterioEvolucion: CriterioEvolucion
+    val evolucionador: Option[Evolucionador] = None
     ){
   
   
@@ -37,10 +38,10 @@ case class Especie(
     if (unNivel >= 1) (2 * experienciaNecesariaProximoNivel(unNivel - 1)) + resistenciaEvolutiva else 0
       
   def hacerEvolucionar(pokemon: Pokemon): Pokemon =
-    pokemon.especie(especieCualEvoluciona.getOrElse(this))
+    pokemon.especie(evolucionador.fold(this)(_.especieFutura))
     
   def debeEvolucionarTras(actividad: Actividad,pokemon: Pokemon): Boolean =
-    criterioEvolucion.debeEvolucionarTras(pokemon,actividad)
+    evolucionador.exists(_.criterio.debeEvolucionarTras(pokemon,actividad))
   
   def efectosPosterioresActividad(actividad: Actividad, pokemon: Pokemon): Pokemon =    
     subirNivel(pokemon, evolucionarSiDebeTras(actividad,_))

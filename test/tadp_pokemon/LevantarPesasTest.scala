@@ -9,13 +9,13 @@ import org.junit.Ignore
 
 class LevantarPesasTest {  
   
-  val especieRaychu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
-  val especiePikachu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, especieCualEvoluciona = Some(especieRaychu))
+  val especieRaychu = Especie(tipoPrincipal= Electrico ,pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
+  val especiePikachu = Especie(tipoPrincipal= Electrico ,pesoMaximo= 100,resistenciaEvolutiva=70,evolucionador =(Some(Evolucionador(CriterioSubirNivel(3),especieRaychu))))
   val pikachu = Pokemon(genero=Macho,especie= especiePikachu )
   val pikachuParalizado = Pokemon(genero=Macho,especie= especiePikachu, estado = Paralizado)
-  val beedrill = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Pelea ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
-  val squirtle = Pokemon(genero=Hembra,especie=Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
-  val otro = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Fantasma, tipoSecundario = Some(Electrico) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=100))
+  val beedrill = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Pelea ,pesoMaximo= 100,resistenciaEvolutiva=100))
+  val squirtle = Pokemon(genero=Hembra,especie=Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,pesoMaximo= 100,resistenciaEvolutiva=100))
+  val otro = Pokemon(genero=Macho,especie=Especie(tipoPrincipal= Fantasma, tipoSecundario = Some(Electrico) ,pesoMaximo= 100,resistenciaEvolutiva=100))
 
   
   @Test

@@ -9,7 +9,7 @@ import org.junit.Ignore
 
 class DescansarTest {  
   
-  val especiePikachu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=500)
+  val especiePikachu = Especie(tipoPrincipal= Electrico ,pesoMaximo= 100,resistenciaEvolutiva=500)
   val pikachu = Pokemon(genero=Macho,especie= especiePikachu, energia = 100,ataques = List(new Ataque(AtaqueBase(Dragon,30)),new Ataque(AtaqueBase(Dragon,30))))
 
   @Test

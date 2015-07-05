@@ -14,8 +14,8 @@ class CambioNivel {
     def <<[C](g: C => A): C => B = f.compose(g)
   }
   
-  val especieRaychu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
-  val especiePikachu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, especieCualEvoluciona = Some(especieRaychu))
+  val especieRaychu = Especie(tipoPrincipal= Electrico ,pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
+  val especiePikachu = Especie(tipoPrincipal= Electrico ,evolucionador = Some(Evolucionador(CriterioSubirNivel(3),especieRaychu)),pesoMaximo= 100,resistenciaEvolutiva=70)
   val pikachu = Pokemon(genero=Macho,especie= especiePikachu )
   val raychu =  Pokemon(genero=Macho,especie= especieRaychu )
   

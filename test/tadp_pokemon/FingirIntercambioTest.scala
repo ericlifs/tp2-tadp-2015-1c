@@ -9,15 +9,15 @@ import org.junit.Ignore
 
 class FingirIntercambioTest {  
   
-  val especieRaychu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
-  val especiePikachu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=CriterioIntercambiado,pesoMaximo= 100,resistenciaEvolutiva=70, especieCualEvoluciona = Some(especieRaychu))
-  val especieBeedrill = Especie(tipoPrincipal= Tierra ,tipoSecundario = Some(Pelea),criterioEvolucion=CriterioExpuestoPiedraComun,pesoMaximo= 100,resistenciaEvolutiva=500,especieCualEvoluciona = Some(especieRaychu) )
-  val especieSquirtle = Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=500)
+  val especieRaychu = Especie(tipoPrincipal= Electrico ,pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
+  val especiePikachu = Especie(tipoPrincipal= Electrico ,evolucionador = Some(Evolucionador(CriterioIntercambiado,especieRaychu)),pesoMaximo= 100,resistenciaEvolutiva=70)
+  val especieBeedrill = Especie(tipoPrincipal= Tierra ,tipoSecundario = Some(Pelea),evolucionador = Some(Evolucionador(CriterioExpuestoPiedraComun,especieRaychu)),pesoMaximo= 100,resistenciaEvolutiva=500)
+  val especieSquirtle = Especie(tipoPrincipal= Agua, tipoSecundario = Some(Pelea) ,pesoMaximo= 100,resistenciaEvolutiva=500)
   val pikachu = Pokemon(genero=Macho,especie= especiePikachu )
   val raychu =  Pokemon(genero=Macho,especie= especieRaychu )
   val beedrill = Pokemon(energia = 100, genero=Macho,especie= especieBeedrill)
   val squirtle = Pokemon(peso = 20,energia = 100, genero=Hembra,especie=especieSquirtle)
-  val otro = Pokemon(energia = 100,genero=Macho,especie=Especie(tipoPrincipal= Fantasma, tipoSecundario = Some(Agua) ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=500))
+  val otro = Pokemon(energia = 100,genero=Macho,especie=Especie(tipoPrincipal= Fantasma, tipoSecundario = Some(Agua),pesoMaximo= 100,resistenciaEvolutiva=500))
 
   
   @Test
