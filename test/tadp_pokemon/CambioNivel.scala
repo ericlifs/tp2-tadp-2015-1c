@@ -14,9 +14,10 @@ class CambioNivel {
     def <<[C](g: C => A): C => B = f.compose(g)
   }
   
-  val especieRaychu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(100),pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
+  val especieRaychu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, incrementoPeso=3, incrementoFuerza=3) 
   val especiePikachu = Especie(tipoPrincipal= Electrico ,criterioEvolucion=new CriterioSubirNivel(3),pesoMaximo= 100,resistenciaEvolutiva=70, especieCualEvoluciona = Some(especieRaychu))
   val pikachu = Pokemon(genero=Macho,especie= especiePikachu )
+  val raychu =  Pokemon(genero=Macho,especie= especieRaychu )
   
   @Test
   def subeANivel2YSubeCaracteristicas= {
@@ -25,7 +26,7 @@ class CambioNivel {
     val trasAtacar = RealizarAtaque(rayito).realizarActividad(Success(pikachu.aprenderAtaque(rayito))).get
     
     assertEquals(2,trasAtacar.nivel)
-    assertEquals(2,trasAtacar.energiaMaxima)
+    assertEquals(101,trasAtacar.energiaMaxima)
     assertEquals(2,trasAtacar.peso)
     assertEquals(2,trasAtacar.fuerza)
     assertEquals(2,trasAtacar.velocidad)
@@ -42,7 +43,7 @@ class CambioNivel {
     assertEquals(1,trasAtacar.nivel)
     assertEquals(1,trasAtacar.nivel)  
     assertEquals(1,trasAtacar.nivel)
-    assertEquals(1,trasAtacar.energiaMaxima)
+    assertEquals(100,trasAtacar.energiaMaxima)
     assertEquals(1,trasAtacar.peso)
     assertEquals(1,trasAtacar.fuerza)
     assertEquals(1,trasAtacar.velocidad)
@@ -59,7 +60,7 @@ class CambioNivel {
     
     assertEquals(2,trasAtacar.nivel)  
     assertEquals(2,trasAtacar.nivel)
-    assertEquals(2,trasAtacar.energiaMaxima)
+    assertEquals(101,trasAtacar.energiaMaxima)
     assertEquals(2,trasAtacar.peso)
     assertEquals(2,trasAtacar.fuerza)
     assertEquals(2,trasAtacar.velocidad)
@@ -77,10 +78,25 @@ class CambioNivel {
     RealizarAtaque(rayito).realizarActividad _) (Success(pikachu.aprenderAtaque(rayito))).get
     
     assertEquals(3,trasAtacar.nivel)
-    assertEquals(3,trasAtacar.energiaMaxima)
+    assertEquals(102,trasAtacar.energiaMaxima)
     assertEquals(5,trasAtacar.peso)
     assertEquals(5,trasAtacar.fuerza)
     assertEquals(3,trasAtacar.velocidad)
+    assertEquals(especieRaychu,trasAtacar.especie)
+    
+  }
+  
+  @Test
+  def subeANivel3QuedaIgualPorqueNoTieneEvolucion= {
+    
+    val rayito = AtaqueBase(Dragon,30)
+    
+    val trasAtacar = 
+    (RealizarAtaque(rayito).realizarActividad _ <<
+    RealizarAtaque(rayito).realizarActividad _ <<
+    RealizarAtaque(rayito).realizarActividad _) (Success(raychu.aprenderAtaque(rayito))).get
+    
+    assertEquals(3,trasAtacar.nivel)
     assertEquals(especieRaychu,trasAtacar.especie)
     
   }
