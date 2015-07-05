@@ -28,7 +28,7 @@ case class Especie(
     if (pokemon.puedeSubirNivel())
       tareaIntermedia(pokemon.incrementarNivel()).aumentarCaracteristicas()
     else 
-      pokemon
+      tareaIntermedia(pokemon)
     
   def aumentarCaracteristicasPokemon(pokemon: Pokemon): Pokemon =
     pokemon.aumentarCaracteristicas(incrementoEnergiaMaxima, incrementoPeso, incrementoFuerza, incrementoVelocidad)

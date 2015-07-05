@@ -6,7 +6,7 @@ object Pokemon{
   
   def apply(
     nivel: Int = 1,  experiencia: Int = 1,  genero: Genero,  energia: Int = 1, 
-     energiaMaxima: Int = 1,  peso: Int = 1,  fuerza: Int = 1,  velocidad: Int = 1, 
+     energiaMaxima: Int = 100,  peso: Int = 1,  fuerza: Int = 1,  velocidad: Int = 1, 
      estado: Estado = Neutro,  especie: Especie,  ataques: List[Ataque] = List()
     ) : Pokemon =
     new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
@@ -18,8 +18,8 @@ object Pokemon{
 }
 
 class Pokemon(
-    val nivel: Int = 1, val experiencia: Int = 1, val genero: Genero, val energia: Int = 1, 
-    val energiaMaxima: Int = 1, val peso: Int = 1, val fuerza: Int = 1, val velocidad: Int = 1, 
+    val nivel: Int, val experiencia: Int, val genero: Genero, val energia: Int, 
+    val energiaMaxima: Int, val peso: Int, val fuerza: Int, val velocidad: Int, 
     val estado: Estado = Neutro, val especie: Especie, val ataques: List[Ataque] = List()
     ) {
  
@@ -54,7 +54,7 @@ class Pokemon(
     }   
     
   def aumentarExperiencia(unaCantidadExperiencia: Int) = 
-   copy(experiencia = experiencia + unaCantidadExperiencia)
+    copy(experiencia = experiencia + unaCantidadExperiencia)  
     
   def incrementarNivel()= copy(nivel = nivel+1)
 
