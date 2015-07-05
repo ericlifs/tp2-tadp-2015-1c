@@ -8,7 +8,7 @@ case class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
     pokemon.filter(puedeAtacar(_, ataqueBase))
   
   def afectar(pokemon: Pokemon): Pokemon  = {
-    pokemon.ataques.find(_.esBasicamente(ataqueBase)).get.perderPuntos(1)
+    pokemon.ataques.find(_.esBasicamente(ataqueBase)).map(_.perderPuntos(1))
     ataqueBase.efectoColateral(pokemon.aumentarExperiencia(experienciaPara(pokemon)))  
   }
   

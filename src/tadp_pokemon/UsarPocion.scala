@@ -1,8 +1,8 @@
 package tadp_pokemon
 
-object UsarPocion extends Actividad {
+case class UsarPocion(val energiaRecuperada: Int) extends Actividad {
     
   def afectar(pokemon: Pokemon): Pokemon =
-    pokemon.aumentarEnergia(50)
+    pokemon.aumentarEnergia(energiaRecuperada.min(50))
     
 }
