@@ -86,7 +86,7 @@ class Pokemon(
   def hacerActividad(actividad: Actividad) =
     estado match{
       case KnockOut => Failure(new Exception("Pokemon estaba KnockOut"))
-      case Dormido => Success(this)
+      case Dormido(ignoradas)=> if(ignoradas<3) Success(estado(Dormido(ignoradas+1))) else actividad.afectarSiPuede(Success(estado(Neutro)))
       case _ => actividad.afectarSiPuede(Success(this))
     }
   

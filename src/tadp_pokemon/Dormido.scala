@@ -1,5 +1,5 @@
 package tadp_pokemon
 
-case object Dormido extends Estado {
+case class Dormido(val actividadesIgnoradas: Int = 0) extends Estado {
   
 }

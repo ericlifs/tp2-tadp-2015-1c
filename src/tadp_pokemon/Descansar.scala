@@ -12,6 +12,6 @@ object Descansar extends Actividad {
     pokemon.energia < 0.5*pokemon.energiaMaxima
     
   def quedarseDormido(pokemon: Pokemon): Pokemon =
-    pokemon.estado(Dormido)
+    pokemon.estado(Dormido())
     
 }
