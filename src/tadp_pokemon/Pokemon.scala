@@ -41,9 +41,8 @@ class Pokemon(
   
   def aumentarEnergia(unaCantidad: Int): Pokemon = copy(energia = (energia+unaCantidad).min(energiaMaxima))
 
-  def ataques(unosAtaques: List[AtaqueBase]): Pokemon = {
+  def ataques(unosAtaques: List[AtaqueBase]): Pokemon = 
     unosAtaques.foldLeft(this){(pokemon, ataqueBase) => pokemon.aprenderAtaque(ataqueBase)}
-  }
 
   def aprenderAtaque(ataqueBase: AtaqueBase): Pokemon = 
     copy(ataques = ataques:+new Ataque(ataqueBase))
@@ -57,8 +56,6 @@ class Pokemon(
     copy(experiencia = experiencia + unaCantidadExperiencia)  
     
   def incrementarNivel()= copy(nivel = nivel+1)
-
-  def aumentarEnergiaAlMaximo() = energia(energiaMaxima)
   
   def aumentarCaracteristicas(): Pokemon =
     especie.aumentarCaracteristicasPokemon(this)
