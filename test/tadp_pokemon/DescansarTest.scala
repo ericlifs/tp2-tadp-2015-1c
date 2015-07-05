@@ -29,7 +29,7 @@ class DescansarTest {
     val trasActividad = Descansar.realizarActividad(Success(pikachu.energia(40).foreachAtaque(_.perderPuntos(5)))).get
     
     assert(trasActividad.ataques.forall(_.puntosDeAtaqueMaximo == 30))
-    assertEquals(Dormido(0), trasActividad.estado)
+    assertEquals(Dormido(), trasActividad.estado)
     
   }
   

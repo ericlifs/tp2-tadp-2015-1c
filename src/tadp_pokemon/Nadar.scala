@@ -3,7 +3,7 @@ package tadp_pokemon
 class Nadar(val minutos : Integer) extends Actividad {
   
   def afectar(pokemon: Pokemon): Pokemon  = 
-    if (pierdeConAgua(pokemon)) pokemon.estado(KnockOut) else completarNado(pokemon).aumentarExperiencia(200).aumentarEnergia(-minutos)
+    (if (pierdeConAgua(pokemon)) pokemon.estado(KnockOut) else completarNado(pokemon).aumentarExperiencia(200)).aumentarEnergia(-minutos)
     
   def pierdeConAgua(pokemon:Pokemon): Boolean =
     pokemon.especie.pierdeContra(Agua)

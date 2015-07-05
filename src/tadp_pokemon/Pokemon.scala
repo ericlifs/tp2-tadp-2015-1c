@@ -76,7 +76,7 @@ class Pokemon(
     experiencia >= especie.experienciaNecesariaProximoNivel(nivel)
 
   def esValido() =
-    entre(nivel,1,100)&&entre(fuerza,1,100)&&entre(velocidad,1,100)&&peso<=especie.pesoMaximo
+    entre(nivel,1,100)&&entre(fuerza,1,100)&&entre(velocidad,1,100)&&peso<=especie.pesoMaximo&&energia>=0
     
   def entre (numero: Int,minimo: Int,maximo: Int): Boolean = numero <= maximo && numero >= minimo  
   
@@ -86,9 +86,6 @@ class Pokemon(
       case Dormido(ignoradas)=> if(ignoradas<3) Success(estado(Dormido(ignoradas+1))) else actividad.afectarSiPuede(Success(estado(Neutro)))
       case _ => actividad.afectarSiPuede(Success(this))
     }
-  
-  def realizarActividad(actividad: Actividad): Try[Pokemon] = //Este método es un pasamanos para hacer mas comodo el uso al testear
-    actividad.realizarActividad(Success(this))  
   
   def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
     especie.esPrincipalmenteDe(tipo)
@@ -101,7 +98,7 @@ class Pokemon(
     new Pokemon(nivel, experiencia, genero, energia, energiaMaxima, peso, fuerza, velocidad,
         estado, especie, ataques)
 
-def analizarRutinas(rutinas: List[Rutina], condicion: (Try[Pokemon] => Int)): String = {
+  def analizarRutinas(rutinas: List[Rutina], condicion: (Try[Pokemon] => Int)): String = {
     var pokemon = Success(this)
     rutinas.sortWith((rut1, rut2) => condicion(rut1.realizar(pokemon)) < condicion(rut2.realizar(pokemon))).head.nombre
   }  
