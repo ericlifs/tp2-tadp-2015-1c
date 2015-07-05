@@ -54,7 +54,7 @@ class Pokemon(
     }   
     
   def aumentarExperiencia(unaCantidadExperiencia: Int) = 
-    copy(experiencia = experiencia + unaCantidadExperiencia)
+   copy(experiencia = experiencia + unaCantidadExperiencia)
     
   def incrementarNivel()= copy(nivel = nivel+1)
 
@@ -89,6 +89,9 @@ class Pokemon(
       case Dormido(ignoradas)=> if(ignoradas<3) Success(estado(Dormido(ignoradas+1))) else actividad.afectarSiPuede(Success(estado(Neutro)))
       case _ => actividad.afectarSiPuede(Success(this))
     }
+  
+  def realizarActividad(actividad: Actividad): Try[Pokemon] = //Este método es un pasamanos para hacer mas comodo el uso al testear
+    actividad.realizarActividad(Success(this))  
   
   def esPrincipalmenteDe(tipo: TipoPokemon): Boolean =
     especie.esPrincipalmenteDe(tipo)

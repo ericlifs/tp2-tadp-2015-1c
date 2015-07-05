@@ -1,7 +1,5 @@
 package tadp_pokemon
 
-import tadp_pokemon.TipoPokemon
-
 class Ataque(val ataqueBase: AtaqueBase) {
   
   var puntosDeAtaqueMaximo: Integer = ataqueBase.puntosDeAtaqueMaximoInicial;

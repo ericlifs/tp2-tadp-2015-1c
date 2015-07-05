@@ -2,7 +2,7 @@ package tadp_pokemon
 
 import scala.util.Try
 
-class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
+case class RealizarAtaque(val ataqueBase: AtaqueBase) extends Actividad {
     
   override def siPuede(pokemon: Try[Pokemon]): Try[Pokemon] =
     pokemon.filter(puedeAtacar(_, ataqueBase))
