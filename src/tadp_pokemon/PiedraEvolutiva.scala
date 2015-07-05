@@ -1,5 +1,7 @@
 package tadp_pokemon
 
-abstract class PiedraEvolutiva (val tipo: TipoPokemon = null)
+trait PiedraEvolutiva
 
-case object PiedraLunar extends PiedraEvolutiva()
+case class PiedraComun(val tipo:TipoPokemon) extends PiedraEvolutiva
+
+case object PiedraLunar extends PiedraEvolutiva
